@@ -1,164 +1,70 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #2c2c2c;
+}
+
 .App {
-  text-align: center;
-  background-color: #282c34;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.stat-group-container {
+  position: absolute;
+  background: rgba(255, 252, 240, 0.9); /* Parchment feel */
+  border: 2px solid #5d4037;
+  border-radius: 8px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.CharacterSheet {
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  position: relative;
-  background-size: cover;
-  background-color: #282c34;
+  z-index: 10;
+  
+  /* RESIZABLE LOGIC */
+  resize: both; 
   overflow: hidden;
+  min-width: 100px;
+  min-height: 80px;
 }
 
-.PersonalInfo {
-  position: absolute;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
-  width: 25%;
-  height: 10%;
-  background-color: green;
+/* Customizing the resize handle (browser dependent, but helpful) */
+.stat-group-container::-webkit-resizer {
+  background-color: #5d4037;
+  border-radius: 5px;
 }
 
-.Name {
-  position: absolute;
-  box-sizing: border-box;
-  top: 10%;
-  left: 5%;
-  width: 25%;
-  height: 20%;
+.group-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #5d4037;
+  border-bottom: 1px solid #d7ccc8;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  /* pointer-events: none; */
 }
 
-.Race {
-  position: absolute;
-  box-sizing: border-box;
-  top: 30%;
-  left: 5%;
-  width: 25%;
-  height: 20%;
+.group-content {
+  flex-grow: 1;
+  position: relative; /* Allows nested absolute components inside the group */
 }
 
-.Background {
+.remove {
   position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 5%;
-  width: 25%;
-  height: 20%;
+  right: 10px;
+}
+.parent {
+  position: relative;
 }
 
-.Level {
-  position: absolute;
-  box-sizing: border-box;
-  top: 70%;
-  left: 5%;
-  width: 25%;
-  height: 20%;
-}
-
-.Skills {
-  position: absolute;
-  box-sizing: border-box;
-  top: 10%;
-  left: 0;
-  width: 25%;
-  height: 40%;
-  background-color: blue;
-}
-
-.Special {
-  position: absolute;
-  box-sizing: border-box;
-  top: 0;
-  left: 25%;
-  width: 50%;
-  height: 20%;
-  background-color: red;
-}
-
-.ArmorAndStats {
-  position: absolute;
-  box-sizing: border-box;
-  top: 20%;
-  left: 25%;
-  width: 50%;
-  height: 30%;
-  background-color: orange;
-}
-
-.Weapons {
-  position: absolute;
-  box-sizing: border-box;
-  top: 0;
-  left: 75%;
-  width: 25%;
-  height: 40%;
-  background-color: green;
-}
-
-.CapsAndLoad {
-  position: absolute;
-  box-sizing: border-box;
-  top: 40%;
-  left: 75%;
-  width: 25%;
-  height: 10%;
-  background-color: yellow;
-}
-
-.TraitsAndPerks {
-  position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  background-color: black;
-}
-
-.Notes {
-  position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  height: 50%;
-  background-color: grey;
+.parent span {
+  cursor: pointer;
 }
