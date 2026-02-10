@@ -1,0 +1,31 @@
+Name;Value;Load * 10 (note: don't forget to divide by 10 when processing in the app)
+Acid;5;1
+Adhesive;9;1
+Aluminum;8;1
+Antiseptic;15;1
+Asbestos;14;1
+Ballistic Fiber;16;1
+Bones;1;1
+Ceramic;3;1
+Circuitry;10;1
+Cloth;1;1
+Concrete;2;1
+Copper;9;1
+Crystals;15;1
+Fertilizer;2;1
+Fiber Optics;16;1
+Fiberglass;13;1
+Gears;8;1
+Glass;3;1
+Gold;15;1
+Lead;2;1
+Leather;4;1
+Nuclear Material;16;1
+Oil;7;1
+Plastic;3;1
+Rubber;4;1
+Screws;10;1
+Silver;11;1
+Springs;8;1
+Steel;2;1
+Wood;1;1

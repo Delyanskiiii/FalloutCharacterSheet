@@ -25,7 +25,7 @@ function App() {
   const saveSheet = () => {
     if (!activeSheet) return;
 
-    fetch(`/api/sheets/${activeSheet.name}`, {
+    fetch(`/api/sheets/${activeSheet.personal.name}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

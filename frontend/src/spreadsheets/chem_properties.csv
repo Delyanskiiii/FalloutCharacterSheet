@@ -1,0 +1,14 @@
+Property Name;Description;id
+Anabolic;If you use a chem with this property, you have advantage on all Strength and Endurance ability and skill checks. Additionally, you gain temporary hit points equal to your level.;
+Anesthetic;If you use a chem with this property, your DT increases by 6.;
+Anxiolytic;If you use a chem with this property, you have advantage on Charisma ability and skill checks, combat sequence rolls, and any checks to resist becoming frightened.;
+Extrapolating;If you use a chem with this property, any rolls you make with Intelligence or Perception are increased by a number equal to your level.;
+Hallucinogenic;If you use a chem with this property, you have advantage on all luck checks and may flip your karma cap.;
+Hyperstimulant;If you use a chem with this property, you gain 4 additional AP at the start of your turn (to a maximum of 20). You no longer suffer the negative effects of the first eight levels of exhaustion. If you have no levels of exhaustion, whenever you roll a d20, add 2 to the result. Additionally, you are immune to gaining levels of fatigue.;
+Invigorating;If you use a chem with this property, you regain stamina points equal to half your level.;
+Painkilling;If you use a chem with this property, your DT increases by 3.;
+Psychosis;If you use a chem with this property, when you deal damage from an attack roll, the damage is increased by 5. However, you always attack the nearest hostile creature. If there are no creatures that are hostile nearby, you must make an Endurance ability check equal to 15. If you fail, you attack the nearest creature.;
+Neuro-Stimulant;If you use a chem with this property, you gain 1 additional AP at the start of your turn (to a maximum of 16). Additionally, you have advantage on all Intelligence and Perception ability and skill checks;
+Sedative;If you use a chem with this property, your passive sense increases by 5 and if you critically hit with an attack roll - the damage is increased by 10.;
+Stimulant;If you use a chem with this property, you gain 1 additional AP at the start of your turn (to a maximum of 16). You no longer suffer the negative effects of the f irst three levels of exhaustion. If you have no levels of exhaustion, whenever you roll a d20, add 1 to the result.;
+Super Stimulant;If you use a chem with this property, you gain 2 additional AP at the start of your turn (to a maximum of 20). You no longer suffer the negative effects of the first five levels of exhaustion. If you have no levels of exhaustion, whenever you roll a d20, add 2 to the result. Additionally, you are immune to gaining levels of fatigue.;

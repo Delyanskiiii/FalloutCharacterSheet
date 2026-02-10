@@ -1,0 +1,9 @@
+Name;Cost;AP;Damage;Arm DC;Area of Effect;Special Properties;Load
+Long Fuse Dynamite;100;6;3d6 explosive;+1;5ft. / 15ft. radius;Deafening: 10ft. Destructive. Slow: 3 rounds (18 seconds);3
+Frag Mine;140;6;6d6 explosive;+4;2.5ft. / 10ft. radius;Proximity. Deafening: 10ft. Destructive. Dismember.;8
+Plasma Mine;180;6;4d8 plasma;+6;10ft. radius;Proximity.;8
+Pulse Mine;80;6;3d8 electricity;+6;20ft. radius;Electromagnetic. Proximity.;6
+Bottlecap Mine;250;6;4d6 explosive and 6d6 slashing.;+2;5ft. / 20ft. radius;Proximity. Deafening: 10ft. Destructive. Mangle.;10
+Cryo Mine;140;6;4d6 cold.;+8;10ft. radius;Freezing. Proximity.;8
+C-4 Plastic Explosive;350;6;15d6 explosive;+10;5ft. / 25ft. radius;Deafening: 10ft. Destructive. Detonator. Dismember.;12
+Nuka Mine;600;6;12d10 explosive and two levels of rads.;+10;45ft. radius;Destructive. Proximity.;22

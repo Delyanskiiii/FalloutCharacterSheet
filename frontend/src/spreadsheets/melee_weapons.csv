@@ -1,0 +1,57 @@
+Name;Type;Base Cost;AP;Damage;Critical Hit;Special Properties;Load;Strength Req
+Shiv;Bladed;65;3;1d4 piercing;20, x2.;Fragile.;1;1
+Knife;Bladed;200;3;1d6 piercing or slashing;20, x3.;Thrown x3/x6.;2;2
+Switchblade;Bladed;120;3;1d6 piercing or slashing;20, x2.;Fragile. Weighted.;1;1
+Sharpened Pole;Bladed;85;5;1d4 piercing;20, x3.;Fragile. Reach. Thrown x6/x10.;7;2
+Combat Knife;Bladed;220;3;2d4 piercing or slashing;20, x3.;Precise. Thrown x3/x8.;2;2
+Throwing Knife;Bladed;80;4;1d4 piercing;20, x3.;Precise. Fragile. Thrown x4/x8, if thrown damage increases to 1d6. ;1;2
+Spear;Bladed;140;4;1d10 piercing or slashing;20, x2.;Reach. Thrown x6/x10;8;2
+Sword;Bladed;195;4;2d6 piercing or slashing;20, x2.;Defensive.;4;3
+Plastic Bumper Sword;Bladed;265;6;3d6 slashing;20, x3.;Two Handed. Cleave. Reach.;10;8
+Steel Bumper Sword;Bladed;415;6;10d6 slashing;20, x3.;Two Handed. Slow. Always Cleave. Weighted. Reach.;30;10
+Cleaver;Bladed;175;5;1d6 slashing;20, x3;Debilitating. Weighted.;2;4
+Fire Axe;Bladed;270;6;2d10 slashing;20, x3;Two Handed. Weighted. Sturdy.;10;6
+Hatchet;Bladed;200;4;2d6 piercing;20, x3;Thrown x4/x8.;2;4
+Machete;Bladed;165;4;2d4 slashing;20, x3.;Precise. Sturdy.;3;4
+Assaultron Blade;Bladed;225;5;3d4 piercing or slashing;20, x3.;Defensive. Precise. Sturdy.;4;5
+Guitar Sword;Bladed;160;5;1d8 slashing;20, x3.;Defensive. Backlash.;5;5
+Sickle;Bladed;130;4;1d8 piercing;19, 20.;Defensive. Debilitating. Precise.;2;2
+Ski Sword;Bladed;210;4;2d4 slashing.;20, x4.;Defensive. Sturdy. Skiing.;4;5
+Pickaxe;Bladed;265;6;3d6 piercing;20, x3;Two Handed. Weighted. Sturdy.;6;6
+Pitchfork;Bladed;290;5;4d4 piercing or slashing;20, x3;Reach. Debilitating. Two Handed.;8;3
+Police Baton;Blunt;105;4;1d6 bludgeoning;20, 1d6.;Sturdy.;3;1
+Wrench;Blunt;140;4;2d4 bludgeoning;20, 4d4.;Sturdy.;5;2
+Crowbar;Blunt;335;6;2d10 bludgeoning;20, 4d10.;Weighted. Durable. Defensive. Two Handed.;20;6
+Sledgehammer;Blunt;215;6;1d12 bludgeoning;20, 3d12, Dazed.;Sturdy. Weighted. Two Handed.;26;7
+Baseball Bat;Blunt;200;5;3d4 bludgeoning;20, 2d4, push back 5 ft.;Weighted. Sturdy. Defensive. Two Handed.;8;4
+Super Sledge;Blunt;310;6;3d12 bludgeoning;20, 3d12. Dazed.;Weighted. Two Handed.;30;8
+9 Iron;Blunt;130;5;1d8 bludgeoning;20, 1d6. Prone.;Weighted. Two Handed.;5;3
+Dress cane;Blunt;115;4;1d4 bludgeoning;20, 3d4. Prone.;Defensive.;3;2
+Lead pipe;Blunt;130;5;1d8 bludgeoning;20, 1d6.;Sturdy. Defensive.;6;5
+Rolling pin;Blunt;125;4;1d6 bludgeoning;20, 2d6.;Weighted. Breakable. Defensive.;3;4
+Shovel;Blunt;255;4;3d4 bludgeoning or slashing.;20, x3.;Debilitating. Sturdy.;10;4
+Tire Iron;Blunt;100;4;1d6 bludgeoning;20, 1d4. Prone.;Weighted.;4;2
+Pool cue;Blunt;125;5;1d6 bludgeoning;20, 3d6.;Weighted. Breakable. Two Handed.;4;3
+Bone club;Blunt;145;4;1d8 bludgeoning;20, 1d6.;Debilitating. Sturdy.;5;4
+Commie Whacker;Blunt;15;4;1 bludgeoning;20, +2.;Fragile. Weak. Patriotic.;2;1
+Paddle Ball;Blunt;11;2;1 bludgeoning;20, +1.;Fragile. Weak.;1;2
+Board;Blunt;115;4;1d8 bludgeoning;20, 1d8.;Weighted. Breakable. Two Handed.;8;5
+Board with a nail;Blunt;125;4;1d8 + 1 bludgeoning;20, 1d8.;Weighted. Breakable. Two Handed.;8;5
+Protest Sign;Blunt;50;5;1d4 bludgeoning;20, Pushed back 5 feet.;Two Handed. Breakable.;8;3
+Stop Sign;Blunt;75;6;3d8 bludgeoning or slashing. Applies Dazed.;20, x3.;Two Handed. Reach.;45;9
+War Drum;Blunt;100;4;1d10 bludgeoning;20, 1d10. Deafens for 1 round.;Two Handed. Breakable.;10;6
+Cattle Prod;Mechanical;210;4;1d4 bludgeoning 2d8 electricity.;20, Dazed.;Ammo: Energy Cell, 1 round, 10 attacks per ammo. Depleted: 1d4 bludgeoning.;5;3
+Ripper;Mechanical;475;3;3d8 slashing.;20, 3d8.;Debilitating. Mangle. Ammo: Energy Cell, 1 round, 10 attacks per ammo. Depleted: 1d4 bludgeoning.;5;6
+Handy buzz blade;Mechanical;220;5;1d10 slashing;20, x3.;Weighted. Mangle. Ammo: Energy Cell, 1 round, 10 attacks per ammo. Depleted: 1d6 slashing.;10;5
+Chainsaw;Mechanical;670;6;6d8 slashing.;20, 6d8.;Debilitating. Two Handed. Mangle. Ammo: Energy Cell, 1 round, 5 attacks per ammo. Depleted: 1d8 bludgeoning.;20;8
+Drill;Mechanical;190;4;1d8 slashing.;19, None;Debilitating. Mangle. Precise. Ammo: Energy Cell, 1 round, 20 attacks per ammo. Depleted: 1d4 piercing.;8;5
+Plasma Cutter;Mechanical;750;5;4d8 plasma;20, Applies severe limb conditions of your choice.;Dismember. Ammo: Microfusion Cell, 1 round, 5 attacks per ammo. Depleted: 1d6 bludgeoning.;12;5
+Shishkebab;Mechanical;690;4;2d6 slashing, 2d6 fire.;20, x2. Applies Burning.;Debilitating. Dismember. Defensive. Ammo: Fuel, 1 round, 10 attacks per ammo. Depleted: 2d6 slashing.;18;5
+Brass Knuckles;Unarmed;150;4;1d4 + 1 bludgeoning.;20, 4d4.;Unarmed. Durable. Weighted.;2;5
+Spiked Knuckles;Unarmed;120;4;1d4 + 1 piercing.;19, None;Unarmed. Precise.;2;4
+Boxing Gloves;Unarmed;115;4;1d4 bludgeoning.;20, 1d4. Applies dazed.;Unarmed. Defensive. Sturdy.;6;3
+Bear Skull Arm;Unarmed;190;6;3d6 piercing or slashing.;20, x2.;Unarmed. Debilitating. Defensive.;15;5
+Deathclaw Gauntlet;Unarmed;280;6;3d12 slashing.;20, 1d12.;Unarmed. Debilitating. Mangle. Defensive.;10;5
+Hunting Trap Fist;Unarmed;265;5;4d4 piercing.;20, x2.;Unarmed. Clasp. Debilitating. Defensive. Mangle.;20;8
+Bear Trap Fist;Unarmed;320;6;3d12 piercing.;20, x2.;Unarmed. Clasp. Debilitating. Defensive. Mangle.;40;10
+Power Fist;Unarmed;350;4;4d6 bludgeoning.;20, x2. Prone or knockback 15 feet.;Unarmed. Debilitating. Weighted. Ammo: Energy Cell, 1 round, 20 attacks per ammo. Depleted: 1d6 bludgeoning.;12;6

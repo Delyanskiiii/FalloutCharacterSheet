@@ -1,0 +1,11 @@
+Upgrade Name;Base Cost;Rank 1 Effect;Rank 2 Effect;Rank 3 Effect;id
+Insulated;100;You are insulated against hypothermia. However, your maximum AP decreases by 1 to a minimum of 6.;Your AP is no longer decreased and you remain insulated. However, this upgrade costs 800 caps instead of 100.;-;
+Camouflage;125;You gain advantage on sneak checks relying on sight. Your passive sneak increases by 3.;You gain advantage on sneak checks relying on sound. Your passive sneak increases by 3.;While in dim light, you become shadowed. Your passive sneak increases by 3.;
+Light;75;Load reduced by 5. Strength req. reduced by 1. DT reduced by 1.;Load reduced by 10 (minimum of 3).;If you spend at least 4 AP on your turn to move, you can move an additional 10 feet.;
+Fitted;175;When you take damage from an area of effect, your DT is doubled.;Your maximum stamina points increase by a number equal to your level.;You have advantage on combat sequence rolls. If you already have advantage, you gain a +5.;
+Lead Lined;125;Radiation DC decreases by 2.;Radiation DC decreases by 2.;Radiation DC decreases by 2.;
+Strengthened;410;When you take damage from a critical hit, your DT increases by 3.;When you take damage from a critical hit, your DT increases by 5.;If you would gain a severe injury, you instead gain a random limb condition.;
+Sturdy;475;You ignore the negative effects of the first 2 levels of decay for the armor.;You ignore the negative effects of the first 4 levels of decay for the armor.;Your armor no longer decays from being damaged by a critical hit.;
+Pocketed;210;Your carry load is increased by 10.;Your carry load is increased by 15.;Your carry load is increased by 25.;
+Reinforced;450;+1 bonus to DT;+1 bonus to DT;+2 bonus to DT;
+Hardened;800;+1 bonus to AC;+1 bonus to AC;+1 bonus to AC;

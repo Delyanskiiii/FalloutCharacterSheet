@@ -11,6 +11,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
+    "papaparse": "^5.5.3",
     "react-dom": "^19.2.3",
     "react-draggable": "^4.5.0",
     "react-grid-layout": "^2.2.2",
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.23"
+    "@types/lodash": "^4.17.23",
+    "@types/papaparse": "^5.5.2"
   }
 }

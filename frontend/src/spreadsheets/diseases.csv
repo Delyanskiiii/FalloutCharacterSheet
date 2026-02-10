@@ -1,0 +1,21 @@
+Name;Effect;Duration;Cure
+Blood worms;Whenever you take damage to your hit points, you take an additional 1d4 poison damage.;12 - your Endurance score number of hours.;x1 antibiotic and an hour.
+Bone worms;Whenever you take damage to your hit points, you gain a random limb condition. (Roll a d6 to determine which limb, 1 for eyes, 2 for head, 3 for arms, 4 or legs, 5 for torso, or 6 for groin);12 - your Endurance score number of hours.;x1 antibiotic and an hour.
+Buzz brain;You have disadvantage on any Intelligence ability or skill checks.;You are no longer affected by this disease after you sleep.;x1 food or chem with the stimulant property.
+Dysentery;You gain four levels of Dehydration that cannot be removed until you no longer have this disease.;15 - your Endurance score number of days (minimum 1).;x2 antibiotics, each one taken one day apart.
+Fever;Your maximum action points are reduced by 3 to a minimum of 6 and you have disadvantage on all d20 rolls.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 Med-X suppresses the effects of a fever by 1d4 hours.
+Flap limb;You have disadvantage on any checks, skill checks, or attack rolls using Strength.;You are no longer affected by this disease after you sleep.;x1 stimpak.
+Glowing pustules;Whenever you take damage to your hit points, you and each creature within 10 feet of you gain one level of Rads.;15 - your Endurance score number of days (minimum 1).;x2 antibiotics, each one taken one day apart.
+Heat flashes;You have disadvantage on any Endurance ability or skill checks.;12 - your Endurance score number of hours.;You are no longer affected by this disease after you sleep so long as you have no levels of dehydration.
+Jelly fingers;Attacking with a ranged weapon costs 1 additional action point.;12 - your Endurance score number of hours.;x1 antibiotic and an hour.
+Lock joint;Attacking with a melee weapon costs 1 additional action point.;12 - your Endurance score number of hours.;x1 antibiotic and an hour.
+Needle spine;Your carry load is halved.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 Med-X.
+Parasites;You gain four levels of Hunger that cannot be removed until you no longer have this disease.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 antibiotic and an hour.
+Rad worms;You gain one level of radiation whenever you sleep.;12 - your Endurance score number of days (minimum 1).;x2 rad-away, each one taken one day apart.
+Rattle hands;Whenever you deal damage from an attack with a ranged weapon, the damage is reduced by 2 (to a minimum of 1).;12 - your Endurance score number of days (minimum 1).;x1 chem with the sedative property.
+Sludge lung;Your maximum AP is reduced by 2 to a minimum of 6 and you can only move a maximum of 20 feet on your turn.;12 - your Endurance score number of days (minimum 1).;x2 antibiotics, each one taken one day apart.
+Snot ear;You have disadvantage on any checks, skill checks, or attack rolls using Perception.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 antibiotic and an hour.
+Swamp gas;You have disadvantage on any Charisma ability or skill checks.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 antibiotic and an hour.
+Swamp itch;You have disadvantage on any checks, skill checks, or attack rolls using Agility.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 antibiotic and an hour.
+Weeping sores;Whenever you take damage to your hit points, you gain one level of bleeding.;2 days if your Endurance score is 6 or higher. 4 days if your Endurance score is 5 or less.;x1 antibiotic and an hour.
+The Whoopsies;You have disadvantage on any checks, skill checks, or attack rolls using Luck.;12 - your Endurance score number of days.;x1 Nuka cola quantum, or tossing 2d20 caps into the ocean, a lake, river, or fountain. If you take back the caps, you are re-afflicted by the Woopsies.

@@ -1,0 +1,27 @@
+Type;Cost;Load * 10 (note: make sure to divide by 10 when processing into the app)
+.308;10;1
+.50;20;1
+.357 Magnum;5;1
+.44 Magnum;8;1
+.45;2;1
+.45-70 Gov't;12;1
+10mm;4;1
+12 gauge;5;1
+12.7mm;12;1
+20 gauge;2;1
+5.56mm;2;1
+5mm;5;1
+9mm;2;1
+Flares;5;1
+Nails (Pack of 5);2;1
+Railway Spike;5;1
+Cryo Cell;50;1
+Energy Cell;30;1
+Microfusion Cell;35;1
+Fusion Core;200;1
+2mm EC;40;1
+Gamma Cell;60;1
+Fuel;50;200
+Mini Nuke;250;120
+Missile;50;100
+Syringe;0;1

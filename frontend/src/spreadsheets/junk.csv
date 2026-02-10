@@ -1,0 +1,215 @@
+Junk Item;Value;Carry Load;Materials;Notes
+Abraxo Cleaner;6;1;x1 acid, x2 antiseptic;
+Accordion;30;0.5;x2 plastic, x1 steel, x1 wood, x1 screws;
+Acetone Canister;8;1;x1 steel, x1 copper;
+Acoustic Guitar;30;4;x2 wood, x1 steel;
+Adjustable Wrench;10;1;x2 steel, x1 gear;
+Alarm Clock;12;1;x2 aluminum, x1 glass, x1 spring;
+Aluminum Can;2;0.5;x1 aluminum, x1 lead;
+Aluminum Canister;12;1.5;x1 aluminum, x1 fiberglass, x1 oil;
+Animal Hide;15;8;x3 leather;
+Anti-Freeze Bottle;4;0.5;x2 plastic, x2 acid;
+Ashtray;2;0.5;x1 ceramic;
+Baby Bottle;8;1;x2 glass, x1 rubber;
+Baby Rattle;3;0.5;x1 plastic, x1 lead;
+Bag of Cement;15;10;x1 cloth, x8 concrete;
+Bag of Chlorine;11;4;x1 cloth, x4 acid;
+Bag of Fertilizer;12;8;x1 cloth, x8 fertilizer;
+Ball-Peen Hammer;4;1.5;x1 wood, x2 steel;
+Baseball;4;0.5;x2 cloth, x2 leather;
+Baseball Glove;6;1;x3 leather;
+Basketball;6;1;x3 rubber;
+Biometric Scanner;30;3;x1 fiber optics, x1 asbestos, x1 nuclear material;
+Bloatfly Gland;2;1;x2 acid;
+Bloodbug Proboscis;10;0.2;x2 acid;
+Blowtorch;15;3;x2 steel, x1 oil;Can be used 3 times to start a small flame. After 3 times, it no longer gives x1 oil when scrapped.
+Board Game (Autopsy);8;1;x2 wood, x1 antiseptic, x1 plastic, x1 bone;
+Board Game (Blast Radius);17;1;x2 wood, x1 nuclear material;
+Board Game (Catch the Commie);8;1;x2 wood, x1 asbestos, x1 steel;
+Bonesaw;5;1.5;x1 rubber, x1 steel;
+Book;1;1;x1 cloth;
+Bottle;1;0.5;x1 glass;Can be filled with 1 use of a drink, such as water.
+Bowling Ball;5;8;x7 plastic;
+Bowling Pin;4;3;x2 plastic, x2 wood;
+Brahmin Skull;2;3;x5 bones;
+Bread Box;3;2;x3 plastic;
+Broken Camera;12;3;x1 gear, x1 spring, x1 crystal;Can be used to craft Cameras.
+Broken Fire Extinguisher;10;4;x2 steel, x1 asbestos, x1 rubber;Can be used to craft a Fire Extinguisher.
+Broken Lantern;17;2.5;x2 glass, x2 oil, x3 steel;Can be used to craft a Lantern.
+Broom;3;3;x1 wood, x1 plastic;
+Bunsen Burner;6;1;x2 steel, x1 copper;
+Cafeteria Tray;2;1;x2 plastic;
+Cake Pan;15;1;x3 aluminum;
+Car Bumper;10;6;x6 steel;Can be used to craft Bumper Swords.
+Cat Bowl;1;0.5;x1 plastic;
+Cazador Venom Gland;18;2;x2 acid;
+Ceramic Bowl;2;1;x1 ceramic;
+Chalk;3;0.5;x1 asbestos;
+Chessboard;2;1;x2 wood;
+Cigar Box;15;0.5;x2 wood, x2 fiberglass, x3 cloth;
+Cigarette Carton;15;1;x2 plastic, x1 cloth, x2 asbestos;
+Claw Hammer;3;3;x2 steel, x1 wood;
+Clipboard;3;0.5;x1 wood, x1 spring;
+Clothes Hanger;1;0.5;x1 steel;
+Clothing Iron;3;3;x2 steel, x1 plastic;
+Coffee Cup;4;0.5;x1 ceramic;
+Coffee Pot;16;1;x2 steel, x2 plastic, x2 asbestos;
+Connecting Rod;2;5;x2 steel;
+Cooking Oil;9;0.5;x1 oil, x1 plastic;
+Cooking Pan;2;0.5;x2 steel;
+Cooking Pot;6;1;x2 steel, x1 copper;
+Coolant;7;1;x1 acid, x1 plastic, x2 rubber;
+Coolant Cap;10;1;x2 aluminum;
+Cotton Yarn;1;0.5;x1 cloth;
+Crutch;5;2;x2 wood, x1 cloth;
+Crystal Liquor Decanter;16;3;x1 leather, x3 crystal;
+Cutting Board;2;0.5;x2 wood;
+Cutting Fluid;13;1;x3 oil, x1 steel;
+Deathclaw Hand;25;5;x2 bone, x3 leather;Can be used to craft the Deathclaw Gauntlet.
+Desk Fan;14;3;x1 gears, x1 screws, x2 steel;
+Dinner Fork;1;0.1;x1 steel;
+Dinner Plate;1;0.5;x1 steel;
+Dishrag;1;0.1;x1 cloth;
+Dog Bowl;1;0.5;x2 plastic;
+Dog Tags;1;0.1;x1 steel;
+Doll;2;1;x1 plastic, x1 cloth;
+Duct Tape;7;0.5;x1 adhesive, x1 cloth;
+Dumbell;45;20;x5 lead;
+Economy Wonderglue;30;1;x5 adhesive;
+Eggtimer;8;0.5;x1 plastic, x1 circuitry;
+Enamel Bucket;2;1.5;x1 steel, x1 plastic;
+Enhanced Targeting Card;17;0.2;x1 plastic, x1 silver, x2 circuitry;
+Fancy Hairbrush;7;0.5;x1 plastic, x1 silver;
+Feather Duster;1;1;x2 plastic, x1 cloth;
+Firehose Nozzle;5;2;x2 steel, x1 rubber, x1 asbestos;
+Fishing Rod;10;2.5;x1 gear, x1 spring, x1 wood;
+Fission Battery;15;3;x2 lead, x2 acid, x1 copper;
+Flask;3;0.5;x1 glass;
+Flask;3;0.5;x1 glass;
+Flip Lighter;8;0.5;x1 oil, x1 spring, x1 steel;Can be used 3 times to light a small flame. After 3 times, it no longer gives x1 oil when scrapped.
+Floater Flamer Pus Sac;25;0.5;x3 leather, x2 oil;Can be used to craft Floater Flamer Grenades.
+Floater Freezer Pus Sac;25;0.5;x3 leather, x2 crystals;Can be used to craft Floater Freezer Grenades.
+Floater Gnasher Pus Sac;25;0.5;x3 leather, x2 acid;Can be used to craft Floater Gnasher Grenades.
+Flower Pot;3;1;x1 ceramic;
+Flute;30;0.5;x2 steel, x1 silver, x1 screws;
+Folder;1;0.1;x1 cloth;
+Fuel Tank;15;5;x2 oil, x2 steel;
+Fumigus Blowtorch;25;3;x3 oil, x3 steel;Can be used 9 times to light a small flame. After every 3 uses, it no longer gives x1 oil when scrapped.
+Fuse;7;0.1;x1 copper, x1 glass;
+Garden Gnome;5;3;x3 concrete, x1 ceramic;
+Gas Canister;7;3;x2 steel, x1 oil;
+Gear;9;1;x1 steel, x2 gears;
+Giddyup Buttercup;35;8;x2 gears, x5 steel, x2 springs, x3 screws;
+Glass Bowl;6;1;x2 glass;
+Glass Jar;3;1;x2 glass;
+Glass Jar Top;5;0.5;x1 aluminum;
+Glass Pitcher;6;1;x2 glass;
+Globe;9;3;x2 screws, x2 leather, x1 plastic;
+Gold Bar;450;15;x10 gold;
+Gold Plated Flip Lighter;17;0.5;x1 gold, x1 oil, x1 steel;Can be used 3 times to light a small flame. After 3 times, it no longer gives x1 oil when scrapped.
+Gold Pocket Watch;25;0.5;x1 gear, x1 gold, x1 spring;
+Golf Ball;1;0.5;x1 plastic;
+Hairbrush;2;0.5;x2 plastic;
+HalluciGen Gas Canister;17;3;x2 steel, x5 acid;
+Handmade Glue;3;0.5;x1 glass, x1 adhesive;
+High-Powered Magnet;29;5;x3 copper, x1 ceramic, x1 nuclear material;
+Hoe;6;2;x2 steel, x2 wood;
+Hot Plate;12;2;x1 circuitry, x1 copper,  x1 screw;Can be used to cook food with a power source.
+Hubcap;6;4;x3 steel;
+Human Arm Bones;3;1;x3 bones;
+Human Foot Bones;2;0.5;x2 bones;
+Human Hand Bones;2;0.5;x1 bones;
+Human Leg Bones;3;1.5;x3 bones;
+Human Rib Cage;6;5;x5 bones;
+Human Skull;3;2.5;x2 bones;
+Human Spine;5;1;x4 bones;
+Industrial Oil Canister;14;2;x1 aluminum, x2 oil;
+Industrial Size Shortening;16;4;x4 oil;
+Industrial Solvent;15;1;x3 steel, x3 antiseptic;
+Jangles the Moon Monkey;15;5;x3 cloth, x1 plastic, x1 fiberglass;
+Kickball;6;0.5;x3 rubber;
+Kitchen Scale;12;2;x3 steel, x1 spring;
+Ladle;1;0.5;x1 steel;
+Lamp;7;2;x1 copper, x1 glass;
+Leaf Blower;8;5;x3 steel, x2 gears, x1 rubber;
+Leather Belt;6;1;x2 leather;
+Light Bulb;4;0.5;x1 copper;
+Log;15;8;x10 wood;
+Lunchbox;3;1;x1 steel;
+Magnifying Glass;15;0.5;x2 glass, x1 copper, x1 crystal;
+Makeshift Battery;12;4;x2 lead, x2 wood, x2 acid;
+Medical Brace;14;2;x2 leather, x1 rubber, x1 steel;
+Medical Liquid Nitrogen Dispenser;12;5;x2 steel;
+Metal Bucket;2;0.5;x1 steel;
+Metal Tub;2;2;x2 steel;
+Microscope;18;4;x1 gear, x1 glass, x1 crystal, x1 fiber optics;
+Military Ammo Bag;4;3;x2 ballistic fiber;
+Military Grade Circuit Board;25;1.5;x2 circuitry;
+Military Grade Duct Tape;22;0.5;x2 ballistic fiber, x4 adhesive;
+Mining Suit Rebreather;5;0.5;x1 aluminum, x1 rubber;
+Mole Rat Teeth;1;0.5;x1 bones;
+Mop;4;2;x2 wood, x1 cloth, x1 rubber;
+Motorcycle Gas Tank;8;4;x3 steel, x2 oil;
+Mr. Handy Fuel;11;5;x6 oil, x3 steel;Can be used to refuel a Mr. Handy for 1 week.
+Oil Can;19;0.5;x2 oil, x1 aluminum;
+Oil Canister;10;1.5;x2 steel, x2 oil;
+Ophthalmoscope;12;1;x1 steel, x1 circuitry, x1 crystal;
+Oven Mitt;8;1;x1 asbestos, x1 cloth;
+Pack of Duct Tape;26;0.5;x4 adhesive, x1 cloth;
+Paint Can (Empty);2;0.5;x2 steel;
+Paint Can (Full);15;3;x2 steel, x5 paint;Can be used to paint a small area with one color 5 times. After each use, it no longer gives x1 paint when scrapped.
+Paperweight;3;3;x3 lead;
+Pen;1;0.1;x1 plastic;
+Pencil;1;0.1;x1 lead, x1 wood;
+Pepper Mill;2;0.5;x2 screws, x2 plastic;
+Picture Frame;2;1;x2 wood;
+Pillow;3;1;x2 cloth;
+Plastic Bowl;2;0.5;x2 plastic;
+Plunger;5;1;x1 rubber, x1 wood;
+Pool Ball;2;0.5;x1 plastic;
+Power Relay Coil;10;0.5;x2 copper, x2 steel;
+Pre-War Money;5;0.1;x1 cloth;
+Radioactive Gland;40;2;x5 nuclear material;
+Radscorpion Venom Gland;20;0.5;x2 nuclear material;Can be used to craft Antivenom.
+Rat Poison;17;0.5;x1 asbestos, x1 fiberglass, x5 lead;
+Salt Shaker;1;0.5;x1 plastic;
+Saucepan;2;1;x2 steel;
+Saucer;1;0.5;x2 ceramic;
+Saw;5;3;x3 steel, x1 rubber;
+Scalpel;1;0.1;x1 steel;
+Scissors;2;0.1;x1 plastic, x1 steel;
+Scorchbeast Hide;15;6;x4 leather, x1 nuclear material;
+Scrap Assaultron Head;27;8;x3 circuitry, x1 silver, x1 screw;Can be used to craft the Salvaged Assaultron Head.
+Screwdriver;3;0.5;x1 steel, x1 wood;
+Sensor Module;23;1;x1 steel, x5 circuitry, x2 copper;
+Shopping Basket;4;0.5;x1 plastic, x3 steel;
+Silver Bowl;12;1;x2 silver;
+Silver Locket;12;0.5;x2 silver, x1 spring;
+Silver Plate;6;1;x1 silver;
+Silver Pocket Watch;24;0.5;x1 gear, x1 silver, x1 spring;
+Snare Drum;30;2.5;x2 plastic, x2 wood, x1 screws;
+Soap;4;0.1;x1 oil;
+Spray Paint;5;1;x1 aluminum, x1 springs, x2 paint;Can be used to paint a small area with one color 2 times. After each use, it no longer gives x1 paint when scrapped.
+Steam Gauge Assembly;8;5;x2 steel, x2 gears, x1 glass;
+Stick;1;1;x2 wood;
+Sticky Tar;11;0.5;x2 oil, x1 glass;
+Stingwing Barb;6;0.5;x1 acid;
+Straw Pillow;1;1;x1 fertilizer;
+Teapot;10;1;x2 ceramic, x1 asbestos;
+Teddy Bear;5;1;x1 cloth, x2 leather;
+Telephone;14;2;x1 circuitry, x1 copper, x1 fiberglass;
+Tin Can;1;0.5;x1 steel, x1 lead;
+Toaster;8;2.5;x1 spring, x2 steel;
+Toilet Paper;1;0.2;x1 cloth;
+Toothbrush;1;0.1;x1 plastic;
+Toy Alien;5;0.5;x2 plastic, x2 rubber, x1 lead;
+Toy Car;7;1;x1 screws, x2 wood, x1 lead;
+Toy Truck;9;1.5;x1 screws, x2 plastic, x2 gears, x1 lead;
+Turpentine;10;1;x2 steel, x2 antiseptic;
+TV Dinner Tray;9;0.5;x2 aluminum, x1 rubber;
+Typewriter;24;5;x2 aluminum, x2 screws, x1 spring, x1 gear;
+Vacuum Cleaner;10;5;x3 steel, x2 rubber;
+Vacuum Tube;10;0.5;x1 glass, x1 circuitry;
+Vase;2;2;x1 ceramic;
+Wonderglue;24;0.5;x2 adhesive;
+Woodchipper;5;6;x5 steel, x3 gears;

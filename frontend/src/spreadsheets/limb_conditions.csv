@@ -1,0 +1,39 @@
+Name;Target;AP;Modifiers;Effects;Description
+Condition 1;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;-5 to all attack rolls for two turns.
+Condition 2;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;Disadvantage to all attack rolls for two turns.
+Condition 3;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;Blinded for two turns.
+Temporary Blindness;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;The target becomes blinded for the next hour or until all of their hit points are healed.
+(Severe Injury) Eye Gouged;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;The target’s Perception ability score is reduced by 2. If both eyes are gouged, the target creature is permanently blinded. (But can take the Blind Devil perk!)
+Condition 1;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);-2 to all attack rolls for two turns.
+Condition 2;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);-5 to all attack rolls for two turns.
+Condition 3;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);-2 AP for two turns.
+Rattled;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);The target becomes frightened for 3 turns
+(Severe Injury) Sliced Juggular;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);The target gains four levels of bleeding and gains two at the start of each of their turns until all levels of bleeding are healed.
+(Severe Injury) Concussion;Head;3;To hit ranged attack modifier if halved;Damage dice is increased by 1. (Example: 1d10 to 2d10);The target has three permanent levels of exhaustion for a number of days equal to the target’s Endurance ability score - 10 (to a minimum of 1).
+Condition1;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);Target drops whatever they are holding in that arm.
+Condition2;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);-2 to all attack rolls for two turns.
+Condition3;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);-5 to all attack rolls for two turns.
+Broken Arm;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target has disadvantage on any ability check, skill check, or attack roll that uses Strength or Agility that require two arms. This condition can be removed with a doctor’s bag.
+(Severe Injury) Severed Hand;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target loses a hand if their Luck score is equal to 6 or higher.  If the target loses their hand: they go into shock, gain two levels of bleeding, and their Agility ability score is reduced by 2.
+(Severe Injury) Severed Arm;Arms;3;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target loses an arm if their Luck score is equal to 5 or lower.  If the target loses their arm: they go into shock, gain four levels of bleeding, and their Agility ability score is reduced by 2 and their  Strength ability score is reduced by 2.  (But can take the Adaptive Reflexes perk!)
+Condition 1;Torso;2;None;None;No condition.
+Condition 2;Torso;2;None;None;No condition.
+Condition 3;Torso;2;None;None;-2 AP for two turns.
+Gut Wallop;Torso;2;None;None;The target becomes dazed for the next 2 turns.
+(Severe Injury) Internal Bleeding;Torso;2;None;None;The target gains one level of bleeding and gains one at the start of each of their turns until all levels of bleeding are healed.
+Condition 1;Groin;3;None;None;-2 AP for two turns.
+Condition 2;Groin;3;None;None;-3 AP for two turns.
+Condition 3;Groin;3;None;None;The target falls prone.
+Painful Collapse;Groin;3;None;None;The target falls prone and becomes dazed until the end of their next turn.
+(Severe Injury) Intense Agony;Groin;3;None;None;The target goes into shock and is dazed for 2 turns.
+Condition 1;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);Can only move a maximum of 30 feet for two turns.
+Condition 2;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);Can only move a maximum of 20 feet for two turns.
+Condition 3;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);Can only move a maximum of 15 feet for two turns.
+Leg Cripple;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target can only move a maximum of 20 feet on a turn until all their hit points are healed.
+(Severe Injury) Severed Leg;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target loses a foot if their Luck score is equal to 6 or higher.  If the target loses their foot: they go into shock, gain two levels of bleeding, and their Agility ability score is reduced by 2.
+(Severe Injury) Severed Foot;Legs;2;None;Damage dice is decreased by 1 to minimum of 1. (Example: 2d10 to 1d10);The target loses their leg if their Luck score is equal to 5 or lower. If the target loses their leg: they go into shock, gain four levels of bleeding, and their Agility ability score is reduced by 2 and their Strength ability score is reduced by 2. (But can take the Adaptive Reflexes perk!)
+Condition 1;Held or Carried Object;4;None;Target object gains one level of decay. Target creatures takes no damage.;Target object gains two levels of decay.
+Condition 2;Held or Carried Object;4;None;Target object gains one level of decay. Target creatures takes no damage.;Target object flies one foot away.
+Condition 3;Held or Carried Object;4;None;Target object gains one level of decay. Target creatures takes no damage.;Object flies 1d4 x 5 feet away.
+Condition 4;Held or Carried Object;4;None;Target object gains one level of decay. Target creatures takes no damage.;Choose either condition 1, 2, or 3.
+Severe Injury;Held or Carried Object;4;None;Target object gains one level of decay. Target creatures takes no damage.;The target object is destroyed beyond repair (GM’s discretion)

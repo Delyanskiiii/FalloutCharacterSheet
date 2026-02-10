@@ -1,0 +1,8 @@
+Mod Name;Base Cost;Description;id
+Strengthened;x0.55;The weapon gains Durable. This modification is permanent and cannot be switched.;
+Double Sided;x0.1;The weapon gains Defensive and Two Handed. Its load is doubled and its Strength requirement increases by 1.;
+Heavy;x0.3;The weapon's AP increases by 1 to a maximum of 6, its load increases by half, and its Strength requirement increases by 1. The weapon gains Weighted. The weapon's critical hit modifier or damage dice increases by 1. This modification is permanent and cannot be switched.;
+Upgraded;x0.75;Whenever you deal damage with the weapon and roll a 1 or a 2 on the damage dice, the damage is increased by 2. This modification is permanent and cannot be switched.;
+Light Build;x0.25;The weapon's AP decreases by 1 to a minimum of 3, its load decreases by half, and its Strength requirement decreases by 1. The weapon gains Breakable. This modification is permanent and cannot be switched.;
+Sharpened, Serrated or Barbed;x0.25;The weapon gains Mangle.;
+Ergonomic;x0.5;The weapon's critical chance decreases by 1.;

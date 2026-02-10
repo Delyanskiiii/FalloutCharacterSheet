@@ -1,0 +1,13 @@
+Syringe Type;Cost;Effect
+Stimpak Loader;25;This syringe allows you to load it with a stimpak, the target gains the effects of the stimpak.
+Chem Loader;25;This syringe allows you to load it with a chem, the target gains the effects of the chem. Note: You cannot load a chem that has an inhaler.
+Radscorpion Venom;35;Target becomes poisoned fro 3 turns and takes 1d6 poison damage at the start of each of their turns.
+Endangerol;40;Target's DT is reduced by 3 for 1 minute.
+Yellow Belly;50;Target becomes frightened for 3 rounds.
+Berserk;55;Target spends all of its AP on its next turn to attack the nearest creature to it.
+Hemorrhage;75;Target gains one level of bleeding.
+Lock Joint;85;Target becomes slowed for 2 turns.
+Sclerosis;110;Target becomes Deafened for 3 rounds.
+Myopic Serum;160;Target becomes Blinded for 3 rounds.
+Mind Cloud;175;All creatures beyond 30 feet of the target creature become invisible to them for 1 minute.
+Tranquilizer;200;If the target's Endurance is a 4 or below, they fall unconscious for 1 hour. Otherwise, they become Dazed for their next two turns and fall unconscious for 1 hour at the end of their third turn. Creatures dazed in this way can remove this condition and prevent falling unconscious by using any chem with the stimulant property.

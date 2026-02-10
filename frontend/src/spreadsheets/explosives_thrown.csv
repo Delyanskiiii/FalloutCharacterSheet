@@ -1,0 +1,9 @@
+Name;Cost;AP;Damage;Range;Area of Effect;Special Properties;Load
+Dynamite;50;6;3d6 explosive;STR x 6;5ft. / 20ft. radius;Deafening: 10ft. Destructive.;3
+Molotov Cocktail;20;6;3d10 fire;STR x 6;5ft. radius;Incendiary. Shattering.;4
+Frag Grenade;150;5;4d6 explosive;STR x 10;5ft. / 20ft. radius;Deafening: 10ft. Destructive. Dismember.;3
+Plasma Grenade;250;4;4d8 plasma;STR x 10;10ft. radius;;4
+Pulse Grenade;150;4;2d8 electricity;STR x 10;15ft. radius;Electromagnetic.;4
+Incendiary Grenade;125;5;2d6 explosive and 3d6 fire;STR x 10;5ft. / 15ft. radius;Deafening: 5ft. Incendiary.;3
+Cryogenic Grenade;125;4;2d6 explosive and 3d6 cold;STR x 10;5ft. / 10ft. radius;Deafening: 5ft. Freezing.;4
+Flash Bang;25;5;1 explosive;STR x 10;20ft. radius;Blinding: 20ft. Deafening: 20ft.;3

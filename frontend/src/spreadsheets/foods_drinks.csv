@@ -1,0 +1,84 @@
+Name;Cost;Properties;Load
+BlamCo Mac & Cheese;10;Filling. Tasty. Irradiated.;4
+Canned Dog Food;4;Filling. Tasty. Irradiated.;2
+Cram;5;Filling. Bland. Irradiated.;1
+Dandy Boy Apples;2;Bland. Snack. Irradiated.;1
+Fancy Lads Snack Cakes;4;Tasty. Snack. Irradiated.;2
+InstaMash;5;Filling. Bland. Irradiated.;6
+Noodle Cup;15;Filling. Tasty.;3
+Pork 'n' Beans;10;Filling. Tasty. Irradiated.;2
+Potato Crisps;4;Tasty. Snack. Irradiated.;1
+Salisbury Steak;10;Filling. Tasty. Irradiated.;5
+Sugar Bombs;5;Tasty. Irradiated.;4
+Yum Yum Deviled Eggs;10;Filling. Tasty. Irradiated.;4
+Agave Fruit;3;Tasty. Snack.;1
+Apple;5;Tasty. Snack.;1
+Yucca Fruit;6;Bland. Refreshing.;2
+Cactus Fruit;5;Tasty. Refreshing. Snack.;1
+Blackberries;8;Tasty. Snack.;1
+Bloodleaf;5;Bland. Snack. Regenerating.;1
+Brain Fungus;6;Bland.;3
+Carrot;3;Tasty. Snack.;2
+Cave Fungus;6;Bland. Snack.;1
+Corn;3;Tasty.;2
+Cranberries;3;Tasty. Snack.;1
+Gourd;3;Tasty. Filling.;5
+Jalapeno pepper;6;Tasty. Spicy. Snack.;1
+Melon;3;Tasty. Filling.;5
+Mutfruit;3;Tasty. Snack.;1
+Pear;3;Tasty. Snack.;1
+Potato;3;Bland.;2
+Prickly pear fruit;3;Tasty. Snack.;1
+Razorgrain;3;Bland. Snack.;1
+Slit bean;3;Bland. Snack.;1
+Tarberry;3;Tasty. Snack.;1
+Tato;3;Tasty. Snack.;1
+Xander Root;2;Bland. Snack.;1
+Baked Bloatfly;10;Tasty. Fortifying. Tainted.;4
+Bear roast;45;Filling. Flavorsome. Strengthening.;6
+Bighorner steak;20;Filling. Flavorsome.;5
+Bloodbug steak;25;Bland. Regenerating. Tainted.;3
+Deathclaw Egg Omlette;80;Delicacy. Empowering. Regenerating.;5
+Deathclaw Steak;60;Delicacy. Empowering. Filling.;8
+Desert Salad;15;Flavorsome.;4
+Donut;8;Tasty. Snack.;1
+Fruit filled donut;8;Tasty. Snack. Fortifying. Irradiated.;1
+Quantum crunch donut;33;Caffeinated. Charged. Irradiated. Snack. Tasty.;1
+Fire ant fricassee;35;Delicacy. Spicy. Putrid.;6
+Gecko Steak;15;Filling. Tasty.;4
+Grilled Radroach;10;Fortifying. Tainted.;3
+Grilled Radstag;30;Filling. Tasty. Hearty.;6
+Iguana on a Stick;10;Tasty.;3
+Mole rat chunks;20;Energizing. Tasty.;3
+Mole rat stew;15;Flavorsome.;8
+Mutt chops;15;Filling. Tasty.;4
+Radscorpion egg omlette;65;Cleansing. Flavorsome.;5
+Radscorpion steak;30;Filling. Flavorsome. Pungent.;6
+Radstag stew;25;Filling. Tasty. Pungent.;8
+Ribeye steak;35;Filling. Delicacy.;6
+Roasted ant;5;Filling. Bland. Tainted.;4
+Roasted mirelurk meat;25;Filling. Tasty. Energizing.;4
+Vegetable soup;15;Tasty. Fortifying.;8
+Wasteland omelet;60;Filling. Flavorsome. Hearty. Regenerating.;4
+Absinthe;60;High-Proof. Addictive. Hallucinogenic.;2
+Atomic Cocktail;10;Caffeinated. Energizing. Irradiated.;2
+Beer;10;Alcoholic. Addictive.;2
+Coffee;15;Caffeinated. Tasty.;2
+Cowboy Coffee;5;Caffeinated.;2
+Dirty Wastelander;15;High-Proof. Addictive.;2
+Dirty Water;5;Irradiated.;2
+Toxic Water;0;Irradiated. Tainted.;2
+Moonshine;40;High-Proof. Addictive. Strengthening.;2
+Nuka-Cola;15;Caffeinated. Irradiated. Tasty. Lucky.;2
+Nuka-Cola Cherry;15;Caffeinated. Irradiated. Flavorsome.;2
+Nuka-Cola Quantum;35;Caffeinated. Charged. Irradiated. Tasty.;2
+Purified Water;20;Hydrating.;2
+Rum;25;High-Proof. Addictive. Tasty.;2
+Scotch;25;High-Proof. Addictive. Tasty.;2
+Sunset Sarsparilla;10;Flavorsome. Irradiated.;2
+Vodka;40;High-Proof. Addictive. Strengthening.;2
+Wasteland Tequila;20;High-Proof. Addictive. Lucky.;2
+Whiskey;20;High-Proof. Addictive. Lucky.;2
+Dead Man's Wine;1;Alcoholic. Addictive. Putrid. Irradiated.;2
+Wasteland Wine;15;Alcoholic. Addictive. Tasty. Irradiated.;2
+Wine;20;Alcoholic. Addictive. Tasty.;2

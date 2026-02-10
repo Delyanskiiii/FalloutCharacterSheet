@@ -1,0 +1,34 @@
+Name;Cost;Properties;Load * 10 (note: divide by 10 when processing in the app)
+Buffout;20;Anabolic.;1
+Buffjet;50;Anabolic. Stimulant.;1
+Bufftats;50;Anabolic. Stimulant.;1
+Calmex;100;Sedative.;10
+Cigarette;5;Anxiolytic.;1
+Coyote tobacco chew;15;Anxiolytic. Super Stimulant.;1
+Daddy-O;50;Extrapolating.;1
+Day Tripper;40;Hallucinogenic.;1
+Fury;60;Painkilling. Psychosis. Super Stimulant.;10
+Hydra;55;Painkilling.;10
+Jet;20;Super Stimulant.;10
+Jet fuel;30;Super Stimulant. Invigorating.;10
+Rocket;50;Hyperstimulant.;10
+Ultrajet;80;Hyperstimulant. Invigorating.;10
+Med-X;50;Anesthetic.;10
+Mentats;40;Neuro-Stimulant.;1
+Berry Mentats;60;Extrapolating. Neuro-Stimulant.;1
+Grape Mentats;60;Anxiolytic. Neuro-Stimulant.;1
+Orange Mentats;60;Sedative. Neuro-Stimulant.;1
+Overdrive;55;Invigorating. Psychosis.;10
+Psycho;50;Psychosis. Painkilling.;10
+Psychobuff;80;Anabolic. Psychosis.;10
+Psycho jet;80;Psychosis. Super Stimulant.;10
+Cache Clearer;5;Anxiolytic. Stimulant.;1
+Coolant Rerouter;100;Sedative.;1
+Data Scrubber;50;Extrapolating.;1
+EISENHOWER PROTOCOL;60;Painkilling. Psychosis. Super Stimulant.;1
+Incoming Projectile Predictor;20;Anesthetic.;1
+Military Aut-Tank AI Upload;50;Psychosis. Painkilling.;1
+Military Turret Operating System;55;Invigorating. Psychosis.;1
+Overclock Hardware;30;Super Stimulant.;1
+Overclock Hardware v2.0;40;Stimulant. Invigorating.;1
+Servo Overdrive;20;Anabolic.;1
