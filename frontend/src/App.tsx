@@ -7,7 +7,7 @@ import Menu from './pages/Menu';
 
 function App() {
   const [characters, setCharacters] = useState<string[]>([]);
-  const [activeSheet, setActiveSheet] = useState<CharacterSheet | null>(characterData);
+  const [activeSheet, setActiveSheet] = useState<CharacterSheet | null>(null);
 
   useEffect(() => {
     // fetch('/api/sheets')

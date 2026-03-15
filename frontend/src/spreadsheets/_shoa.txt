@@ -1,0 +1,123 @@
+ammo_special
+Round Type;Cost Modifier;Effect;Type;id
+Armor Piercing;x3;If the weapon's damage is dealt to a creature's hit points, it ignores up to 8 points of DT and the creature's armor gains a level of decay.;.308, .50, 5.56mm, 5mm;
+
+ammo_syringer
+Syringe Type;Cost;Effect
+Stimpak Loader;25;This syringe allows you to load it with a stimpak, the target gains the effects of the stimpak.
+
+ammo_special
+Type;Cost;Load * 10 (note: make sure to divide by 10 when processing into the app)
+.308;10;1
+
+armor_upgrades
+Upgrade Name;Base Cost;Rank 1 Effect;Rank 2 Effect;Rank 3 Effect;id
+Insulated;100;You are insulated against hypothermia. However, your maximum AP decreases by 1 to a minimum of 6.;Your AP is no longer decreased and you remain insulated. However, this upgrade costs 800 caps instead of 100.;-;
+
+armor
+Type;Base Cost;AC;DT;Slots;Load;STR Req.;Description
+Cloth;50;10;0;8;5;1;Cloth armor doesn't provide much protection. However it lends its simplicity to being light and having the most amount of upgrade slots. Most vault suits are considered cloth armor.
+
+chems
+Name;Cost;Properties;Load * 10 (note: divide by 10 when processing in the app)
+Buffout;20;Anabolic.;1
+
+chem_properties
+Property Name;Description;id
+Anabolic;If you use a chem with this property, you have advantage on all Strength and Endurance ability and skill checks. Additionally, you gain temporary hit points equal to your level.;
+
+conditions
+Name;Description
+Blinded;A blinded creature can't see and automatically fails any ability check that requires sight. Attack rolls against a blinded creature have advantage. A blinded creature can attack creatures with a blind attack if they are aware of them.
+
+diseases
+Name;Effect;Duration;Cure
+Blood worms;Whenever you take damage to your hit points, you take an additional 1d4 poison damage.;12 - your Endurance score number of hours.;x1 antibiotic and an hour.
+
+explosives_placed
+Name;Cost;AP;Damage;Arm DC;Area of Effect;Special Properties;Load
+Long Fuse Dynamite;100;6;3d6 explosive;+1;5ft. / 15ft. radius;Deafening: 10ft. Destructive. Slow: 3 rounds (18 seconds);3
+
+explosives_properties
+Special Property Name;Description;id
+Blinding;Each creature in the area of effect listed next to the properties name becomes blinded for a number of rounds equal to 4 - their Endurance ability modifier to a minimum of 1.;
+
+explosives_thrown
+Name;Cost;AP;Damage;Range;Area of Effect;Special Properties;Load
+Dynamite;50;6;3d6 explosive;STR x 6;5ft. / 20ft. radius;Deafening: 10ft. Destructive.;3
+
+foods_drinks
+Name;Cost;Properties;Load
+BlamCo Mac & Cheese;10;Filling. Tasty. Irradiated.;4
+
+foods_drinks_properties
+Property Name;Description;id
+Consumption;If you're someone who needs to consume food and drink to survive, whenever you consume any food you remove one level of hunger and whenever you consume any drink, you remove one level of dehydration. You do not gain the benefits or the effects of any foods until after 1 minute. However, you gain the benefits and effects of drinks immediately after you consume them.;
+
+gear
+Name;Cost;Description;Load (not worn / empty);Load (worn / full)
+Backpack;20;A leather, burlap, or cloth bag with straps or a sling to grant you more space to store items on you. While you wear a backpack, your carry load increases by 50.;10;0
+
+junk
+Junk Item;Value;Carry Load;Materials;Notes
+Abraxo Cleaner;6;1;x1 acid, x2 antiseptic;
+
+junk_components
+Name;Value;Load * 10 (note: don't forget to divide by 10 when processing in the app)
+Acid;5;1
+
+levels
+Level;HP;SP;Perks;Skill Points (Intelligence Modifier: -1, 0, +1);;
+1;10+END;10+AGI;1;0;0;0
+
+limb_conditions
+Name;Target;AP;Modifiers;Effects;Description
+Condition 1;Eyes;5;To hit ranged attack modifier if halved;The total damage is halved.;-5 to all attack rolls for two turns.
+
+magazine
+Name;Cost;Effect;Load
+Milsurp Review;50;Your Guns skill bonus increases by 1 until you rest.;1
+
+medicine
+Name;Cost;Description;Load * 10 (note: don't forget to divide by 10 when processing in the app)
+Addictol;125;This miracle drug comes in an inhaler. You can spend 4 AP to consume it. When you do, you become cured of all addictions. However, you gain three levels of dehydration, hunger, and exhaustion.;10
+
+melee_weapons
+Name;Type;Base Cost;AP;Damage;Critical Hit;Special Properties;Load;Strength Req
+Shiv;Bladed;65;3;1d4 piercing;20, x2.;Fragile.;1;1
+
+melee_weapons_properties
+Special Property Name;Description;id
+Ammo;Weapons with these properties require certain types of ammunition or fuel to operate at full capacity, each listed next to the property name. You can deal the damage listed in the Damage section of the weapon so long as you have rounds available in the weapon. If you attack with a weapon that has this property and has no rounds left, you deal the damage listed next to the Depleted property. To load rounds into the weapon, you must have the required ammunition and you must spend 6 AP to reload.;
+
+melee_weapons_upgrades
+Mod Name;Base Cost;Description;id
+Strengthened;x0.55;The weapon gains Durable. This modification is permanent and cannot be switched.;
+
+perks
+Name;Max;Requirements;Description;Repeat
+Adaptive Reflexes;4;Missing Hand, Arm, Foot, or Leg.;You've learned to endure and overcome your disability. If you lost your foot or leg, you are no longer limited to moving only 20 feet on a turn. If you lost your hand or foot: you gain 3 points which you can use to increase any of your ability scores by the amount used. If you lost your arm or leg: you gain 5 points which you can use to increase any of your ability scores by the amount used.;
+
+power_armor
+Name;Base Cost;AC;DP;Slots;Repair DC;Allotted Time
+T-45;4050;14;15;6;16;4
+
+power_armor_upgrades
+Upgrade Name;Cost;Tier 1;Tier 2;Tier 3;id
+Explosive Shielding;1350;Reduce explosive damage taken by 5;Reduce explosive damage taken by 10;Reduce explosive damage taken by 15;
+
+ranged_weapons
+Name;Type;Base Cost;AP;Damage;Range;Critical Hit;Ammo and Reload;Special Properties;Load;Strength Req.
+Flare Gun;Handgun;90;4;1d4 fire;x4/x10;20, 1d4;Flare, 1 round, 1 attacks per ammo;Incendiary. Quick Reload.;3;1
+
+ranged_weapons_properties
+Special Property Name;Description;id
+Accurate;When you make a targeted attack roll with a weapon that has this property, you may choose the limb condition instead of rolling for it.;
+
+ranged_weapons_upgrades
+Mod Name;Base Cost;Time to Equip/Unequip;Description;Equippable Weapons;id
+Auto-Firing Turret;x0.9;15 - your Intelligence score in minutes.;Mod Slot Total: 3. The weapon is mounted to an immovable stand that turns and aims automatically using artificial intelligence that locks onto targets. The turret must remain connected to the terminal via wiring. Before activating the turret, you can designate any number of creatures who will not be targeted by the turret. You can spend 6 AP to activate or deactivate the turret from its terminal. When you roll combat sequence, roll combat sequence for the turret. The turret's bonus to combat sequence is equal to your Intelligence ability modifier. On each of the turrets turns it gains 10 AP which it uses to attack the closest creature in the weapon's short range. It does not spend its AP to do anything else. The turret is considered a robot with 25 hit points and an AC of 10. If the turret falls to 0 hit points, it ceases function and the weapon gains 1 level of decay.;Any weapon.;
+
+traits
+Name;Prerequisite;Description;Wild Wasteland
+Fast Metabolism;Human;Your metabolic rate is increased. Your Healing Rate is increased by 2. However, your Radiation DC is increased by 3.;Your Healing Rate is increased by a number equal to your level. However, whenever you succeed a radiation check, your Radiation DC increases by 4 instead of 2.

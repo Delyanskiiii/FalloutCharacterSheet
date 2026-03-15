@@ -5,21 +5,7 @@ const path = require('node:path')
 const os = require('os');
 const fs = require('fs');
 
-function getLocalIp() {
-  const interfaces = os.networkInterfaces();
-  for (const name of Object.keys(interfaces)) {
-    for (const iface of interfaces[name]) {
-      if (iface.family === 'IPv4' && !iface.internal) {
-        return iface.address;
-      }
-    }
-  }
-  return 'localhost';
-}
-
 const server = express();
-const ip = getLocalIp();
-const PORT = 3000;
 const sheetsDir = path.join(__dirname, 'sheets');
 
 server.use(express.json());
@@ -29,7 +15,7 @@ server.listen(PORT, '0.0.0.0', () => {});
 app.whenReady().then(() => {
   const win = new BrowserWindow({ show: false });
   win.minimize();
-  shell.openExternal(`http://${ip}:${PORT}`);
+  shell.openExternal(`http://localhost:3000/`);
 })
 
 // List of character sheets

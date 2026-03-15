@@ -35,10 +35,6 @@ export interface Item {
 
 export interface Personal {
   name: string;
-  race: string;
-  raceVariant: string;
-  background: string;
-  level: number;
 }
 
 export interface Special {

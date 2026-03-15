@@ -7,6 +7,7 @@ import SpecialComponent from '../components/SpecialComponent';
 import PersonalComponent from '../components/PersonalComponent';
 import SkillsComponent from '../components/SkillsComponent';
 import TraitsComponent from '../components/TraitsComponent';
+import NotesComponent from '../components/NotesComponent';
 
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -42,6 +43,7 @@ const Main = ({activeSheet, setActiveSheet, saveSheet}: {activeSheet: CharacterS
     skills: SkillsComponent,
     vitality: NumberInput,
     traits: TraitsComponent,
+    notes: NotesComponent,
   };
 
   const onLayoutChange = (currentLayout: any, allLayouts: any) => {
