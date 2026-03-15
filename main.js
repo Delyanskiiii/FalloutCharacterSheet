@@ -1,12 +1,13 @@
 const { BrowserWindow, app, shell } = require('electron/main')
-
-const express = require('express');
-const path = require('node:path')
-const os = require('os');
 const fs = require('fs');
 
+const express = require('express');
 const server = express();
-const sheetsDir = path.join(__dirname, 'sheets');
+
+const path = require('node:path')
+const gameDir = __dirname;
+
+const PORT = 3000;
 
 server.use(express.json());
 server.use(express.static('frontend/build'));
@@ -15,13 +16,12 @@ server.listen(PORT, '0.0.0.0', () => {});
 app.whenReady().then(() => {
   const win = new BrowserWindow({ show: false });
   win.minimize();
-  shell.openExternal(`http://localhost:3000/`);
+  shell.openExternal(`http://localhost:${PORT}`);
 })
 
-// List of character sheets
-server.get('/api/sheets', (req, res) => {
-  fs.readdir(sheetsDir, (err, files) => {
-    if (err) return res.status(500).send("Could not read sheets folder");
+server.get('/api/game', (req, res) => {
+  fs.readdir(gameDir, (err, files) => {
+    if (err) return res.status(500).send("Could not read games folder");
     const characterList = files
       .filter(file => file.endsWith('.json'))
       .map(file => file.replace('.json', ''));
@@ -29,18 +29,16 @@ server.get('/api/sheets', (req, res) => {
   });
 });
 
-// Open specific character sheet
-server.get('/api/sheets/:name', (req, res) => {
+server.get('/api/game/:name', (req, res) => {
   const fileName = `${req.params.name}.json`;
-  const filePath = path.join(sheetsDir, fileName);
+  const filePath = path.join(gameDir, fileName);
   
   res.sendFile(filePath);
 });
 
-// Upload new json to host
-server.post('/api/sheets/:name', (req, res) => {
+server.post('/api/game/:name', (req, res) => {
   const charName = req.body.name;
-  const filePath = path.join(sheetsDir, `${charName}.json`);
+  const filePath = path.join(gameDir, `${charName}.json`);
   const updatedData = req.body;
 
   fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), (err) => {
