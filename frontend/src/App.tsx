@@ -1,9 +1,10 @@
 import './App.css';
 import { CharacterSheet } from './types';
 import { useEffect, useState } from 'react';
-import characterData from './sheets/Sheet_0.json';
+//import characterData from './sheets/Sheet_0.json';
 import Main from './pages/Main';
 import Menu from './pages/Menu';
+import Refactor from './pages/Refactor';
 
 function App() {
   const [characters, setCharacters] = useState<string[]>([]);
@@ -45,7 +46,7 @@ function App() {
     );
   } else {
     return (
-      <Menu characters={characters} loadSheet={loadSheet} />
+      <Refactor characters={characters} loadSheet={loadSheet} />
     );
   }
 }
