@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 // --- Types & Constants ---
 
-type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affects' | 'criticalHit' | 'json';
+type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affects' | 'criticalHit' | 'rangeConfig' | 'json';
 
 export interface Requirement {
   category: string;
@@ -19,7 +19,7 @@ export interface Affect {
 
 export interface CriticalHit {
   extraDice: string;
-  damageMultiplier: number;
+  diceMultiplier: number;
 }
 
 export interface Item {
@@ -43,6 +43,7 @@ export interface Item {
   upgradeDifficultyCheck?: number;
   upgradeTime?: number;
   damage?: string;
+  criticalHitMultiplier?: number;
   criticalHit?: CriticalHit[];
   reload?: string;
   range?: string;
@@ -80,6 +81,7 @@ const PROPERTY_CONFIG: Record<string, PropertyType> = {
   upgradeDifficultyCheck: 'number',
   upgradeTime: 'number',
   damage: 'string',
+  criticalHitMultiplier: 'number',
   criticalHit: 'criticalHit',
   reload: 'string',
   range: 'string',
@@ -104,6 +106,7 @@ const getDefaultValue = (type: PropertyType) => {
     case 'numberArray':
     case 'requirements':
     case 'affects':
+    case 'rangeConfig':
     case 'criticalHit': return [];
     default: return '';
   }
@@ -155,7 +158,7 @@ const ObjectArrayEditor = ({ type, value, onChange, categories = [] }: { type: P
     const defaults: Record<string, any> = {
       requirements: { category: '', itemName: '', property: 'name', affection: 'equal', value: '' },
       affects: { property: 'name', value: '' },
-      criticalHit: { extraDice: 'd4', damageMultiplier: 1 }
+      criticalHit: { extraDice: 'd4', diceMultiplier: 1 }
     };
     onChange([...value, defaults[type] || {}]);
   };
@@ -218,7 +221,7 @@ const ObjectArrayEditor = ({ type, value, onChange, categories = [] }: { type: P
               <select value={obj.extraDice} onChange={e => updateEntry(i, 'extraDice', e.target.value)}>
                 {DICE_OPTIONS.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
-              <input type="number" value={obj.damageMultiplier} onChange={e => updateEntry(i, 'damageMultiplier', parseFloat(e.target.value))} style={{ width: '50px' }} />
+              <input type="number" value={obj.diceMultiplier} onChange={e => updateEntry(i, 'diceMultiplier', parseFloat(e.target.value))} style={{ width: '50px' }} />
             </>
           )}
           <button onClick={() => onChange(value.filter((_, idx) => idx !== i))}>x</button>
@@ -246,6 +249,47 @@ const PropertyField = ({ propKey, value, onChange, globalTags = [], categories =
           <option value="" disabled>+ Add Tag</option>
           {globalTags.filter(t => !selectedTags.includes(t)).map(tag => <option key={tag} value={tag}>{tag}</option>)}
         </select>
+      </div>
+    );
+  }
+
+  if (propKey === 'range') {
+    const rangeValue = value || { type: 'Melee' }; // Ensure a default structure
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+        <select
+          value={rangeValue.type}
+          onChange={(e) => {
+            const newType = e.target.value as 'Melee' | 'Ranged';
+            if (newType === 'Melee') {
+              onChange({ type: 'Melee' });
+            } else {
+              onChange({ type: 'Ranged', normal: 0, disadvantage: 0 });
+            }
+          }}
+          style={{ padding: '2px', borderRadius: '4px', border: '1px solid #ccc' }}
+        >
+          <option value="Melee">Melee</option>
+          <option value="Ranged">Ranged</option>
+        </select>
+        {rangeValue.type === 'Ranged' && (
+          <>
+            <label>Normal Range:</label>
+            <input
+              type="number"
+              value={rangeValue.normal || 0}
+              onChange={(e) => onChange({ ...rangeValue, normal: parseFloat(e.target.value) || 0 })}
+              style={{ flex: 1 }}
+            />
+            <label>Disadvantage Range:</label>
+            <input
+              type="number"
+              value={rangeValue.disadvantage || 0}
+              onChange={(e) => onChange({ ...rangeValue, disadvantage: parseFloat(e.target.value) || 0 })}
+              style={{ flex: 1 }}
+            />
+          </>
+        )}
       </div>
     );
   }
