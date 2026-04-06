@@ -2,22 +2,25 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 // --- Types & Constants ---
 
-type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affects' | 'criticalHit' | 'rangeConfig' | 'json';
+type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affection' | 'damageInterface' | 'rangeConfig' | 'json';
 
 export interface Requirement {
   category: string;
   itemName: string;
   property: string;
   affection: string;
-  value: string | number;
+  value: any;
 }
 
-export interface Affect {
+export interface Affection {
+  category: string;
+  itemName: string;
   property: string;
-  value: string | number;
+  affection: string;
+  value: any;
 }
 
-export interface CriticalHit {
+export interface damageInterface {
   extraDice: string;
   diceMultiplier: number;
 }
@@ -25,28 +28,26 @@ export interface CriticalHit {
 export interface Item {
   id: number;
   name: string;
-  maxTiers?: number;
-  currentTier?: number;
+  maxTier?: number;
   maxRepeats?: number;
   description?: string;
   requirements?: Requirement[];
   tags?: string[];
-  affects?: Affect[];
-  usedBy?: number[];
+  affects?: Affection[];
+  usedBy?: string[];
   priceCost?: number;
   useCost?: number;
   weight?: number;
   repairDifficultyCheck?: number;
   repairTime?: number;
   maxUpgrades?: number;
-  upgrades?: string[];
   upgradeDifficultyCheck?: number;
   upgradeTime?: number;
-  damage?: string;
+  damage?: damageInterface[];
   criticalHitMultiplier?: number;
-  criticalHit?: CriticalHit[];
-  reload?: string;
-  range?: string;
+  criticalHit?: damageInterface[];
+  reload?: number;
+  range?: string | { type: 'Melee' } | { type: 'Ranged', normal: number, disadvantage: number };
   equipTime?: number;
   defencePoints?: number;
   damageThreshold?: number;
@@ -63,27 +64,25 @@ interface Category {
 
 const PROPERTY_CONFIG: Record<string, PropertyType> = {
   name: 'string',
-  maxTiers: 'number',
-  currentTier: 'number',
+  maxTier: 'number',
   maxRepeats: 'number',
   description: 'string',
   requirements: 'requirements',
   tags: 'stringArray',
-  affects: 'affects',
-  usedBy: 'numberArray',
+  affects: 'affection',
+  usedBy: 'stringArray',
   priceCost: 'number',
   useCost: 'number',
   weight: 'number',
   repairDifficultyCheck: 'number',
   repairTime: 'number',
   maxUpgrades: 'number',
-  upgrades: 'stringArray',
   upgradeDifficultyCheck: 'number',
   upgradeTime: 'number',
-  damage: 'string',
+  damage: 'damageInterface',
   criticalHitMultiplier: 'number',
-  criticalHit: 'criticalHit',
-  reload: 'string',
+  criticalHit: 'damageInterface',
+  reload: 'number',
   range: 'string',
   equipTime: 'number',
   defencePoints: 'number',
@@ -105,9 +104,9 @@ const getDefaultValue = (type: PropertyType) => {
     case 'stringArray':
     case 'numberArray':
     case 'requirements':
-    case 'affects':
+    case 'affection':
     case 'rangeConfig':
-    case 'criticalHit': return [];
+    case 'damageInterface': return [];
     default: return '';
   }
 };
@@ -153,12 +152,12 @@ const TagManager = ({ tags, onTagsChange }: { tags: string[], onTagsChange: (tag
   );
 };
 
-const ObjectArrayEditor = ({ type, value, onChange, categories = [] }: { type: PropertyType, value: any[], onChange: (val: any[]) => void, categories?: Category[] }) => {
+function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags = [] }: { type: PropertyType, value: any[], onChange: (val: any[]) => void, categories?: Category[], globalTags?: string[] }) {
   const addItem = () => {
     const defaults: Record<string, any> = {
       requirements: { category: '', itemName: '', property: 'name', affection: 'equal', value: '' },
-      affects: { property: 'name', value: '' },
-      criticalHit: { extraDice: 'd4', diceMultiplier: 1 }
+      affection: { category: '', itemName: '', property: 'name', affection: 'plus', value: '' },
+      damageInterface: { extraDice: 'd4', diceMultiplier: 1 }
     };
     onChange([...value, defaults[type] || {}]);
   };
@@ -205,18 +204,61 @@ const ObjectArrayEditor = ({ type, value, onChange, categories = [] }: { type: P
               <select value={obj.affection} onChange={e => updateEntry(i, 'affection', e.target.value)}>
                 {['equal', 'less', 'more'].map(a => <option key={a} value={a}>{a}</option>)}
               </select>
-              <input value={obj.value} onChange={e => updateEntry(i, 'value', e.target.value)} style={{ width: '60px' }} />
+              <div style={{ flex: 1, minWidth: '120px' }}>
+                <PropertyField 
+                  propKey={obj.property} 
+                  value={obj.value} 
+                  onChange={val => updateEntry(i, 'value', val)} 
+                  globalTags={globalTags}
+                  categories={categories}
+                />
+              </div>
             </>
           )}
-          {type === 'affects' && (
+          {type === 'affection' && (
             <>
-              <select value={obj.property} onChange={e => updateEntry(i, 'property', e.target.value)}>
-                {ITEM_PROPERTY_OPTIONS.map(k => <option key={k} value={k}>{k}</option>)}
+              <select value={obj.category} onChange={e => {
+                const next = [...value];
+                next[i] = { ...obj, category: e.target.value, itemName: '', property: '' };
+                onChange(next);
+              }}>
+                <option value="">Select Category</option>
+                {categories.map(cat => <option key={cat.name} value={cat.name}>{cat.name}</option>)}
               </select>
-              <input value={obj.value} onChange={e => updateEntry(i, 'value', e.target.value)} style={{ width: '60px' }} />
+              
+              <select value={obj.itemName} onChange={e => {
+                const next = [...value];
+                next[i] = { ...obj, itemName: e.target.value, property: '' };
+                onChange(next);
+              }}>
+                <option value="">Select Item</option>
+                {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
+                  <option key={item.id} value={item.name}>{item.name}</option>
+                ))}
+              </select>
+
+              <select value={obj.property} onChange={e => updateEntry(i, 'property', e.target.value)}>
+                <option value="">Select Property</option>
+                {obj.category && categories.find(c => c.name === obj.category)?.propertyKeys.map(prop => (
+                  <option key={prop} value={prop}>{prop}</option>
+                ))}
+              </select>
+
+              <select value={obj.affection} onChange={e => updateEntry(i, 'affection', e.target.value)}>
+                {['replace', 'minus', 'plus'].map(a => <option key={a} value={a}>{a}</option>)}
+              </select>
+              <div style={{ flex: 1, minWidth: '120px' }}>
+                <PropertyField 
+                  propKey={obj.property} 
+                  value={obj.value} 
+                  onChange={val => updateEntry(i, 'value', val)} 
+                  globalTags={globalTags}
+                  categories={categories}
+                />
+              </div>
             </>
           )}
-          {type === 'criticalHit' && (
+          {type === 'damageInterface' && (
             <>
               <select value={obj.extraDice} onChange={e => updateEntry(i, 'extraDice', e.target.value)}>
                 {DICE_OPTIONS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -230,12 +272,12 @@ const ObjectArrayEditor = ({ type, value, onChange, categories = [] }: { type: P
       <button onClick={addItem} style={{ fontSize: '0.8em' }}>+ Add Entry</button>
     </div>
   );
-};
+}
 
-const PropertyField = ({ propKey, value, onChange, globalTags = [], categories = [] }: { propKey: string, value: any, onChange: (val: any) => void, globalTags?: string[], categories?: Category[] }) => {
+function PropertyField({ propKey, value, onChange, globalTags = [], categories = [] }: { propKey: string, value: any, onChange: (val: any) => void, globalTags?: string[], categories?: Category[] }) {
   const type = getPropertyType(propKey);
 
-  if (propKey === 'tags') {
+  if (propKey === 'tags' || propKey === 'usedBy') {
     const selectedTags = Array.isArray(value) ? value : [];
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', alignItems: 'center' }}>
@@ -294,8 +336,8 @@ const PropertyField = ({ propKey, value, onChange, globalTags = [], categories =
     );
   }
 
-  if (['requirements', 'affects', 'criticalHit'].includes(type)) {
-    return <ObjectArrayEditor type={type} value={Array.isArray(value) ? value : []} onChange={onChange} categories={categories} />;
+  if (['requirements', 'affection', 'damageInterface'].includes(type)) {
+    return <ObjectArrayEditor type={type} value={Array.isArray(value) ? value : []} onChange={onChange} categories={categories} globalTags={globalTags} />;
   }
 
   if (type === 'stringArray' || type === 'numberArray') {
@@ -318,7 +360,7 @@ const PropertyField = ({ propKey, value, onChange, globalTags = [], categories =
   }
 
   return <input type={type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(type === 'number' ? parseFloat(e.target.value) || 0 : e.target.value)} style={{ flex: 1 }} />;
-};
+}
 
 // --- Main Component ---
 
@@ -449,7 +491,7 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
                 {getCategoryKeys(cat).map((prop) => {
                   const type = getPropertyType(prop);
                   return (
-                    <div key={prop} style={{ display: 'flex', marginBottom: '10px', flexDirection: type.includes('Array') || ['requirements', 'affects', 'criticalHit'].includes(type) ? 'column' : 'row' }}>
+                    <div key={prop} style={{ display: 'flex', marginBottom: '10px', flexDirection: type.includes('Array') || ['requirements', 'affection', 'damageInterface'].includes(type) ? 'column' : 'row' }}>
                       <label style={{ minWidth: '140px', fontWeight: 'bold' }}>{prop}:</label>
                       <PropertyField propKey={prop} value={(it as any)[prop]} onChange={val => setItem(ci, ii, { [prop]: val })} globalTags={globalTags} categories={categories} />
                     </div>
