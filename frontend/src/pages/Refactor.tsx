@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 // --- Types & Constants ---
 
-type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affection' | 'damageInterface' | 'rangeConfig' | 'json';
+type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affection' | 'damageInterface' | 'rangeConfig' | 'usedBy' | 'json';
 
 export interface Requirement {
   category: string;
@@ -20,6 +20,13 @@ export interface Affection {
   value: any;
 }
 
+export interface UsedBy {
+  type: 'item' | 'tag';
+  category?: string;
+  itemName?: string;
+  tag?: string;
+}
+
 export interface damageInterface {
   extraDice: string;
   diceMultiplier: number;
@@ -34,7 +41,7 @@ export interface Item {
   requirements?: Requirement[];
   tags?: string[];
   affects?: Affection[];
-  usedBy?: string[];
+  usedBy?: UsedBy[];
   priceCost?: number;
   useCost?: number;
   weight?: number;
@@ -70,7 +77,7 @@ const PROPERTY_CONFIG: Record<string, PropertyType> = {
   requirements: 'requirements',
   tags: 'stringArray',
   affects: 'affection',
-  usedBy: 'stringArray',
+  usedBy: 'usedBy',
   priceCost: 'number',
   useCost: 'number',
   weight: 'number',
@@ -94,6 +101,8 @@ const PROPERTY_CONFIG: Record<string, PropertyType> = {
 const ITEM_PROPERTY_OPTIONS = Object.keys(PROPERTY_CONFIG);
 const DICE_OPTIONS = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
 
+const NON_TIERED_PROPS = ['id', 'name', 'maxTier'];
+
 // --- Helper Logic ---
 
 const getPropertyType = (prop: string): PropertyType => PROPERTY_CONFIG[prop] || 'string';
@@ -106,6 +115,7 @@ const getDefaultValue = (type: PropertyType) => {
     case 'requirements':
     case 'affection':
     case 'rangeConfig':
+    case 'usedBy':
     case 'damageInterface': return [];
     default: return '';
   }
@@ -153,10 +163,15 @@ const TagManager = ({ tags, onTagsChange }: { tags: string[], onTagsChange: (tag
 };
 
 function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags = [] }: { type: PropertyType, value: any[], onChange: (val: any[]) => void, categories?: Category[], globalTags?: string[] }) {
-  const addItem = () => {
+  const addItem = (customDefault?: any) => {
+    if (customDefault) {
+      onChange([...value, customDefault]);
+      return;
+    }
     const defaults: Record<string, any> = {
       requirements: { category: '', itemName: '', property: 'name', affection: 'equal', value: '' },
       affection: { category: '', itemName: '', property: 'name', affection: 'plus', value: '' },
+      usedBy: { type: 'tag', tag: '' },
       damageInterface: { extraDice: 'd4', diceMultiplier: 1 }
     };
     onChange([...value, defaults[type] || {}]);
@@ -189,6 +204,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
                 onChange(next);
               }}>
                 <option value="">Select Item</option>
+                {obj.category && <option value="any">Any Item</option>}
                 {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
                   <option key={item.id} value={item.name}>{item.name}</option>
                 ))}
@@ -232,6 +248,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
                 onChange(next);
               }}>
                 <option value="">Select Item</option>
+                {obj.category && <option value="any">Any Item</option>}
                 {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
                   <option key={item.id} value={item.name}>{item.name}</option>
                 ))}
@@ -245,7 +262,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
               </select>
 
               <select value={obj.affection} onChange={e => updateEntry(i, 'affection', e.target.value)}>
-                {['replace', 'minus', 'plus'].map(a => <option key={a} value={a}>{a}</option>)}
+                {['replace', 'minus', 'plus', 'divide', 'multiply'].map(a => <option key={a} value={a}>{a}</option>)}
               </select>
               <div style={{ flex: 1, minWidth: '120px' }}>
                 <PropertyField 
@@ -256,6 +273,38 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
                   categories={categories}
                 />
               </div>
+            </>
+          )}
+          {type === 'usedBy' && (
+            <>
+              <span style={{ fontSize: '0.8em', minWidth: '35px' }}>
+                {obj.type === 'tag' ? 'Tag:' : 'Item:'}
+              </span>
+              {obj.type === 'tag' ? (
+                <select value={obj.tag || ''} onChange={e => updateEntry(i, 'tag', e.target.value)}>
+                  <option value="">Select Tag</option>
+                  {globalTags.map(tag => <option key={tag} value={tag}>{tag}</option>)}
+                </select>
+              ) : (
+                <>
+                  <select value={obj.category || ''} onChange={e => {
+                    const next = [...value];
+                    next[i] = { ...obj, category: e.target.value, itemName: '' };
+                    onChange(next);
+                  }}>
+                    <option value="">Select Category</option>
+                    {categories.map(cat => <option key={cat.name} value={cat.name}>{cat.name}</option>)}
+                  </select>
+                  
+                  <select value={obj.itemName || ''} onChange={e => updateEntry(i, 'itemName', e.target.value)}>
+                    <option value="">Select Item</option>
+                    {obj.category && <option value="any">Any Item</option>}
+                    {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
+                      <option key={item.id} value={item.name}>{item.name}</option>
+                    ))}
+                  </select>
+                </>
+              )}
             </>
           )}
           {type === 'damageInterface' && (
@@ -269,7 +318,14 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
           <button onClick={() => onChange(value.filter((_, idx) => idx !== i))}>x</button>
         </div>
       ))}
-      <button onClick={addItem} style={{ fontSize: '0.8em' }}>+ Add Entry</button>
+      {type === 'usedBy' ? (
+        <div style={{ display: 'flex', gap: '5px' }}>
+          <button onClick={() => addItem({ type: 'tag', tag: '' })} style={{ fontSize: '0.8em' }}>+ Add Tag</button>
+          <button onClick={() => addItem({ type: 'item', category: '', itemName: '' })} style={{ fontSize: '0.8em' }}>+ Add Item</button>
+        </div>
+      ) : (
+        <button onClick={() => addItem()} style={{ fontSize: '0.8em' }}>+ Add Entry</button>
+      )}
     </div>
   );
 }
@@ -277,7 +333,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
 function PropertyField({ propKey, value, onChange, globalTags = [], categories = [] }: { propKey: string, value: any, onChange: (val: any) => void, globalTags?: string[], categories?: Category[] }) {
   const type = getPropertyType(propKey);
 
-  if (propKey === 'tags' || propKey === 'usedBy') {
+  if (propKey === 'tags') {
     const selectedTags = Array.isArray(value) ? value : [];
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', alignItems: 'center' }}>
@@ -336,7 +392,7 @@ function PropertyField({ propKey, value, onChange, globalTags = [], categories =
     );
   }
 
-  if (['requirements', 'affection', 'damageInterface'].includes(type)) {
+  if (['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type)) {
     return <ObjectArrayEditor type={type} value={Array.isArray(value) ? value : []} onChange={onChange} categories={categories} globalTags={globalTags} />;
   }
 
@@ -371,9 +427,21 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
 
   const normalizeItem = useCallback((item: Partial<Item>, propertyKeys: string[]): Item => {
     const normalized: any = { id: item.id || Date.now() };
+    const mTier = item.maxTier ?? 1;
+
     propertyKeys.forEach((key) => {
       const type = getPropertyType(key);
-      normalized[key] = (item as any)[key] ?? getDefaultValue(type);
+      const val = (item as any)[key];
+
+      if (NON_TIERED_PROPS.includes(key)) {
+        normalized[key] = val ?? getDefaultValue(type);
+      } else if (mTier >= 2) {
+        let arr = Array.isArray(val) ? [...val] : [val ?? getDefaultValue(type)];
+        while (arr.length < mTier) arr.push(getDefaultValue(type));
+        normalized[key] = arr.slice(0, mTier);
+      } else {
+        normalized[key] = Array.isArray(val) ? val[0] : (val ?? getDefaultValue(type));
+      }
     });
     return normalized as Item;
   }, []);
@@ -412,8 +480,35 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
 
   const setItem = (catIdx: number, itemIdx: number, patch: Partial<Item>) => setCategories(prev => {
     const next = [...prev];
+    const cat = next[catIdx];
+    const keys = getCategoryKeys(cat);
+    let item = { ...cat.items[itemIdx] };
+
+    // Migration logic for tiers
+    if ('maxTier' in patch) {
+      const newMaxTier = patch.maxTier ?? 1;
+      const oldMaxTier = item.maxTier ?? 1;
+
+      if (newMaxTier !== oldMaxTier) {
+        keys.forEach(prop => {
+          if (NON_TIERED_PROPS.includes(prop)) return;
+          const val = (item as any)[prop];
+          const type = getPropertyType(prop);
+
+          if (newMaxTier >= 2) {
+            let newArr = Array.isArray(val) && oldMaxTier >= 2 ? [...val] : [val ?? getDefaultValue(type)];
+            while (newArr.length < newMaxTier) newArr.push(getDefaultValue(type));
+            (item as any)[prop] = newArr.slice(0, newMaxTier);
+          } else if (oldMaxTier >= 2 && Array.isArray(val)) {
+            (item as any)[prop] = val[0];
+          }
+        });
+      }
+    }
+
+    const updatedItem = { ...item, ...patch };
     const items = [...next[catIdx].items];
-    items[itemIdx] = { ...items[itemIdx], ...patch };
+    items[itemIdx] = updatedItem as Item;
     next[catIdx] = { ...next[catIdx], items };
     return next;
   });
@@ -427,7 +522,11 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
   });
 
   const exportAll = () => {
-    const blob = new Blob([JSON.stringify({ categories, globalTags }, null, 2)], { type: 'application/json' });
+    const cleanCategories = categories.map(cat => ({
+      ...cat,
+      items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
+    }));
+    const blob = new Blob([JSON.stringify({ categories: cleanCategories, globalTags }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -491,9 +590,38 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
                 {getCategoryKeys(cat).map((prop) => {
                   const type = getPropertyType(prop);
                   return (
-                    <div key={prop} style={{ display: 'flex', marginBottom: '10px', flexDirection: type.includes('Array') || ['requirements', 'affection', 'damageInterface'].includes(type) ? 'column' : 'row' }}>
-                      <label style={{ minWidth: '140px', fontWeight: 'bold' }}>{prop}:</label>
-                      <PropertyField propKey={prop} value={(it as any)[prop]} onChange={val => setItem(ci, ii, { [prop]: val })} globalTags={globalTags} categories={categories} />
+                    <div key={prop} style={{ marginBottom: '10px' }}>
+                      {((it.maxTier ?? 1) >= 2 && !NON_TIERED_PROPS.includes(prop)) ? (
+                        <div style={{ padding: '8px', backgroundColor: '#f9f9f9', border: '1px solid #eee', borderRadius: '4px' }}>
+                          <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '0.9em', color: '#444' }}>{prop} (Tiered Values):</div>
+                          {[...Array(it.maxTier)].map((_, tIdx) => {
+                            const isColumn = type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type);
+                            return (
+                              <div key={tIdx} style={{ display: 'flex', marginBottom: '8px', gap: '10px', flexDirection: isColumn ? 'column' : 'row' }}>
+                                <label style={{ minWidth: '60px', fontSize: '0.85em', color: '#666', paddingTop: isColumn ? '0' : '4px' }}>Tier {tIdx + 1}:</label>
+                                <PropertyField 
+                                  propKey={prop} 
+                                  value={(it as any)[prop]?.[tIdx] ?? getDefaultValue(type)} 
+                                  onChange={val => {
+                                    const old = (it as any)[prop];
+                                    const arr = Array.isArray(old) ? [...old] : [old];
+                                    while(arr.length <= tIdx) arr.push(getDefaultValue(type));
+                                    arr[tIdx] = val;
+                                    setItem(ci, ii, { [prop]: arr });
+                                  }} 
+                                  globalTags={globalTags} 
+                                  categories={categories} 
+                                />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex', flexDirection: type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type) ? 'column' : 'row' }}>
+                          <label style={{ minWidth: '140px', fontWeight: 'bold' }}>{prop}:</label>
+                          <PropertyField propKey={prop} value={(it as any)[prop]} onChange={val => setItem(ci, ii, { [prop]: val })} globalTags={globalTags} categories={categories} />
+                        </div>
+                      )}
                     </div>
                   );
                 })}

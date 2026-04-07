@@ -6,7 +6,7 @@ ammo_syringer
 Syringe Type;Cost;Effect
 Stimpak Loader;25;This syringe allows you to load it with a stimpak, the target gains the effects of the stimpak.
 
-ammo_special
+ammo
 Type;Cost;Load * 10 (note: make sure to divide by 10 when processing into the app)
 .308;10;1
 
