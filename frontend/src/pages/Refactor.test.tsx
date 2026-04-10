@@ -82,4 +82,19 @@ describe('Refactor Component Automated Tests', () => {
     expect(screen.queryByText(/Tier 2:/i)).not.toBeInTheDocument();
     expect(screen.getByDisplayValue('High Level')).toBeInTheDocument();
   });
+
+  test('scenario: Category Minimization', () => {
+    render(<Refactor {...mockProps} />);
+    fireEvent.click(screen.getByText(/Add Category/i));
+    
+    // Expanded content (toggle button for properties) should be visible
+    expect(screen.getByText(/Show Item Properties/i)).toBeInTheDocument();
+    
+    // Find and click minimize button
+    fireEvent.click(screen.getByTitle('Minimize Category'));
+    
+    // Content should be hidden
+    expect(screen.queryByText(/Show Item Properties/i)).not.toBeInTheDocument();
+    expect(screen.getByTitle('Expand Category')).toBeInTheDocument();
+  });
 });

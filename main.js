@@ -19,7 +19,7 @@ app.whenReady().then(() => {
   shell.openExternal(`http://localhost:${PORT}`);
 })
 
-server.get('/api/game', (req, res) => {
+server.get('/game', (req, res) => {
   fs.readdir(gameDir, (err, files) => {
     if (err) return res.status(500).send("Could not read games folder");
     const characterList = files
@@ -29,14 +29,14 @@ server.get('/api/game', (req, res) => {
   });
 });
 
-server.get('/api/game/:name', (req, res) => {
+server.get('/game/:name', (req, res) => {
   const fileName = `${req.params.name}.json`;
   const filePath = path.join(gameDir, fileName);
   
   res.sendFile(filePath);
 });
 
-server.post('/api/game/:name', (req, res) => {
+server.post('/game/:name', (req, res) => {
   const charName = req.body.name;
   const filePath = path.join(gameDir, `${charName}.json`);
   const updatedData = req.body;

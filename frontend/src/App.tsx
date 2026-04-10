@@ -11,13 +11,13 @@ function App() {
   const [activeSheet, setActiveSheet] = useState<CharacterSheet | null>(null);
 
   useEffect(() => {
-    // fetch('/api/sheets')
-    //   .then(res => res.json())
-    //   .then(data => setCharacters(data));
+    fetch('/game')
+      .then(res => res.json())
+      .then(data => setCharacters(data));
   }, []);
 
   const loadSheet = (name: string) => {
-    fetch(`/api/sheets/${name}`)
+    fetch(`/game/${name}`)
       .then(res => res.json())
       .then(data => setActiveSheet(data));
     console.log('activeSheet', activeSheet);
@@ -26,7 +26,7 @@ function App() {
   const saveSheet = () => {
     if (!activeSheet) return;
 
-    fetch(`/api/sheets/${activeSheet.personal.name}`, {
+    fetch(`/game/${activeSheet.personal.name}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

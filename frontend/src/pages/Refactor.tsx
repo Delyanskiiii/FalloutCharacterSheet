@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 // --- Types & Constants ---
 
-type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affection' | 'damageInterface' | 'rangeConfig' | 'usedBy' | 'json';
+type PropertyType = 'string' | 'number' | 'stringArray' | 'numberArray' | 'requirements' | 'affection' | 'damageInterface' | 'rangeConfig' | 'uses' | 'json';
 
 export interface Requirement {
   category: string;
@@ -20,8 +20,8 @@ export interface Affection {
   value: any;
 }
 
-export interface UsedBy {
-  type: 'item' | 'tag';
+export interface Uses {
+  type: 'item' | 'tag' | 'category';
   category?: string;
   itemName?: string;
   tag?: string;
@@ -43,7 +43,7 @@ export interface Item {
   affects?: Affection[];
   stat?: number;
   statFormula?: Affection[];
-  usedBy?: UsedBy[];
+  uses?: Uses[];
   priceCost?: number;
   useCost?: number;
   weight?: number;
@@ -62,6 +62,8 @@ export interface Item {
   damageThreshold?: number;
   armorClass?: number;
   loadWorn?: number;
+  duration?: number;
+  APtoUse?: number;
 }
 
 interface Category {
@@ -69,6 +71,7 @@ interface Category {
   items: Item[];
   propertyKeys: string[];
   showProps?: boolean;
+  minimized?: boolean;
 }
 
 export const PROPERTY_CONFIG: Record<string, PropertyType> = {
@@ -81,7 +84,7 @@ export const PROPERTY_CONFIG: Record<string, PropertyType> = {
   affects: 'affection',
   stat: 'number',
   statFormula: 'affection',
-  usedBy: 'usedBy',
+  uses: 'uses',
   priceCost: 'number',
   useCost: 'number',
   weight: 'number',
@@ -100,13 +103,15 @@ export const PROPERTY_CONFIG: Record<string, PropertyType> = {
   damageThreshold: 'number',
   armorClass: 'number',
   loadWorn: 'number',
+  duration: 'number',
+  APtoUse: 'number',
 };
 
 export const ITEM_PROPERTY_OPTIONS = Object.keys(PROPERTY_CONFIG);
 const DICE_OPTIONS = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
 
 export const NON_TIERED_PROPS = ['id', 'name', 'maxTier'];
-const ARRAY_TYPES: PropertyType[] = ['stringArray', 'numberArray', 'requirements', 'affection', 'usedBy', 'damageInterface'];
+const ARRAY_TYPES: PropertyType[] = ['stringArray', 'numberArray', 'requirements', 'affection', 'uses', 'damageInterface'];
 
 // --- Helper Logic ---
 
@@ -120,7 +125,7 @@ export const getDefaultValue = (type: PropertyType) => {
     case 'requirements':
     case 'affection':
     case 'rangeConfig':
-    case 'usedBy':
+    case 'uses':
     case 'damageInterface': return [];
     default: return '';
   }
@@ -176,7 +181,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
     const defaults: Record<string, any> = {
       requirements: { category: '', itemName: '', property: 'name', affection: 'equal', value: '' },
       affection: { category: '', itemName: '', property: 'name', affection: 'plus', value: '' },
-      usedBy: { type: 'tag', tag: '' },
+      uses: { type: 'tag', tag: '' },
       damageInterface: { extraDice: 'd4', diceMultiplier: 1 }
     };
     onChange([...value, defaults[type] || {}]);
@@ -280,7 +285,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
               </div>
             </>
           )}
-          {type === 'usedBy' && (
+          {type === 'uses' && (
             <>
               <span style={{ fontSize: '0.8em', minWidth: '35px' }}>
                 {obj.type === 'tag' ? 'Tag:' : 'Item:'}
@@ -300,14 +305,16 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
                     <option value="">Select Category</option>
                     {categories.map(cat => <option key={cat.name} value={cat.name}>{cat.name}</option>)}
                   </select>
-                  
-                  <select value={obj.itemName || ''} onChange={e => updateEntry(i, 'itemName', e.target.value)}>
-                    <option value="">Select Item</option>
-                    {obj.category && <option value="any">Any Item</option>}
-                    {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
-                      <option key={item.id} value={item.name}>{item.name}</option>
-                    ))}
-                  </select>
+
+                  {obj.type === 'item' && (
+                    <select value={obj.itemName || ''} onChange={e => updateEntry(i, 'itemName', e.target.value)}>
+                      <option value="">Select Item</option>
+                      {obj.category && <option value="any">Any Item</option>}
+                      {obj.category && categories.find(c => c.name === obj.category)?.items.map(item => (
+                        <option key={item.id} value={item.name}>{item.name}</option>
+                      ))}
+                    </select>
+                  )}
                 </>
               )}
             </>
@@ -323,9 +330,10 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
           <button onClick={() => onChange(value.filter((_, idx) => idx !== i))}>x</button>
         </div>
       ))}
-      {type === 'usedBy' ? (
+      {type === 'uses' ? (
         <div style={{ display: 'flex', gap: '5px' }}>
           <button onClick={() => addItem({ type: 'tag', tag: '' })} style={{ fontSize: '0.8em' }}>+ Add Tag</button>
+          <button onClick={() => addItem({ type: 'category', category: '' })} style={{ fontSize: '0.8em' }}>+ Add Category</button>
           <button onClick={() => addItem({ type: 'item', category: '', itemName: '' })} style={{ fontSize: '0.8em' }}>+ Add Item</button>
         </div>
       ) : (
@@ -397,7 +405,7 @@ function PropertyField({ propKey, value, onChange, globalTags = [], categories =
     );
   }
 
-  if (['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type)) {
+  if (['requirements', 'affection', 'damageInterface', 'uses'].includes(type)) {
     return <ObjectArrayEditor type={type} value={Array.isArray(value) ? value : []} onChange={onChange} categories={categories} globalTags={globalTags} />;
   }
 
@@ -429,6 +437,7 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
   const hostname = window.location.hostname;
   const [categories, setCategories] = useState<Category[]>([]);
   const [globalTags, setGlobalTags] = useState<string[]>([]);
+  const [exportFileName, setExportFileName] = useState('categories');
 
   const normalizeItem = useCallback((item: Partial<Item>, propertyKeys: string[]): Item => {
     const normalized: any = { id: item.id || Date.now() };
@@ -550,16 +559,42 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
     items: categories[catIdx].items.filter((_, i) => i !== itemIdx) 
   });
 
-  const exportAll = () => {
+  const exportAll = async () => {
     const cleanCategories = categories.map(cat => ({
       ...cat,
       items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
     }));
-    const blob = new Blob([JSON.stringify({ categories: cleanCategories, globalTags }, null, 2)], { type: 'application/json' });
+    const data = JSON.stringify({ categories: cleanCategories, globalTags }, null, 2);
+    const fileName = exportFileName.trim() || 'categories';
+    const suggestedName = fileName.endsWith('.json') ? fileName : `${fileName}.json`;
+
+    // Use File System Access API if available (Chrome, Edge, Opera)
+    if ('showSaveFilePicker' in window) {
+      try {
+        const handle = await (window as any).showSaveFilePicker({
+          suggestedName,
+          types: [{
+            description: 'JSON Files',
+            accept: { 'application/json': ['.json'] },
+          }],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(data);
+        await writable.close();
+        return;
+      } catch (err: any) {
+        // If the user cancels the dialog, just exit
+        if (err.name === 'AbortError') return;
+        console.error('File System Access API failed, falling back to download...', err);
+      }
+    }
+
+    // Fallback for browsers that don't support the API (Firefox, Safari)
+    const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'categories.json';
+    a.download = suggestedName;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -588,6 +623,13 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
         return (
           <div key={ci} style={{ marginBottom: '15px', padding: '5px', border: '1px dashed #ccc' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <button 
+                onClick={() => updateCategory(ci, { minimized: !cat.minimized })}
+                style={{ border: 'none', background: 'transparent', cursor: 'pointer', fontSize: '1.1em', padding: '0 5px' }}
+                title={cat.minimized ? "Expand Category" : "Minimize Category"}
+              >
+                {cat.minimized ? '▶' : '▼'}
+              </button>
               <input 
                 placeholder="Category name" 
                 value={cat.name} 
@@ -598,70 +640,80 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
             </div>
             {isDuplicate && <div style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>Category name must be unique.</div>}
 
-          <button style={{ marginTop: '10px', marginBottom: '8px' }} onClick={() => updateCategory(ci, { showProps: !cat.showProps })}>
-            {cat.showProps ? 'Hide' : 'Show'} Item Properties
-          </button>
-          {cat.showProps && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '5px' }}>
-              {ITEM_PROPERTY_OPTIONS.map((prop) => (
-                <label key={prop} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <input type="checkbox" checked={getCategoryKeys(cat).includes(prop)} disabled={prop === 'name'} onChange={() => toggleCategoryProperty(ci, prop)} />
-                  {prop}
-                </label>
-              ))}
-            </div>
-          )}
-          <div style={{ marginTop: '10px' }}>
-            <strong>Items</strong>
-            <button onClick={() => addItem(ci)} style={{ marginLeft: '5px' }}>+ Item</button>
-            {cat.items.map((it, ii) => (
-              <div key={ii} style={{ marginTop: '10px', padding: '10px', border: '1px solid #ddd' }}>
-                {getCategoryKeys(cat).map((prop) => {
-                  const type = getPropertyType(prop);
-                  return (
-                    <div key={prop} style={{ marginBottom: '10px' }}>
-                      {((it.maxTier ?? 1) >= 2 && !NON_TIERED_PROPS.includes(prop)) ? (
-                        <div style={{ padding: '8px', backgroundColor: '#f9f9f9', border: '1px solid #eee', borderRadius: '4px' }}>
-                          <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '0.9em', color: '#444' }}>{prop} (Tiered Values):</div>
-                          {[...Array(it.maxTier)].map((_, tIdx) => {
-                            const isColumn = type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type);
-                            return (
-                              <div key={tIdx} style={{ display: 'flex', marginBottom: '8px', gap: '10px', flexDirection: isColumn ? 'column' : 'row' }}>
-                                <label style={{ minWidth: '60px', fontSize: '0.85em', color: '#666', paddingTop: isColumn ? '0' : '4px' }}>Tier {tIdx + 1}:</label>
-                                <PropertyField 
-                                  propKey={prop} 
-                                  value={(it as any)[prop]?.[tIdx] ?? getDefaultValue(type)} 
-                                  onChange={val => {
-                                    const old = (it as any)[prop];
-                                    const arr = Array.isArray(old) ? [...old] : [old];
-                                    while(arr.length <= tIdx) arr.push(getDefaultValue(type));
-                                    arr[tIdx] = val;
-                                    setItem(ci, ii, { [prop]: arr });
-                                  }} 
-                                  globalTags={globalTags} 
-                                  categories={categories} 
-                                />
-                              </div>
-                            );
-                          })}
+          {!cat.minimized && (
+            <>
+              <button style={{ marginTop: '10px', marginBottom: '8px' }} onClick={() => updateCategory(ci, { showProps: !cat.showProps })}>
+                {cat.showProps ? 'Hide' : 'Show'} Item Properties
+              </button>
+              {cat.showProps && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '5px' }}>
+                  {ITEM_PROPERTY_OPTIONS.map((prop) => (
+                    <label key={prop} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <input type="checkbox" checked={getCategoryKeys(cat).includes(prop)} disabled={prop === 'name'} onChange={() => toggleCategoryProperty(ci, prop)} />
+                      {prop}
+                    </label>
+                  ))}
+                </div>
+              )}
+              <div style={{ marginTop: '10px' }}>
+                <strong>Items</strong>
+                <button onClick={() => addItem(ci)} style={{ marginLeft: '5px' }}>+ Item</button>
+                {cat.items.map((it, ii) => (
+                  <div key={ii} style={{ marginTop: '10px', padding: '10px', border: '1px solid #ddd' }}>
+                    {getCategoryKeys(cat).map((prop) => {
+                      const type = getPropertyType(prop);
+                      return (
+                        <div key={prop} style={{ marginBottom: '10px' }}>
+                          {((it.maxTier ?? 1) >= 2 && !NON_TIERED_PROPS.includes(prop)) ? (
+                            <div style={{ padding: '8px', backgroundColor: '#f9f9f9', border: '1px solid #eee', borderRadius: '4px' }}>
+                              <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '0.9em', color: '#444' }}>{prop} (Tiered Values):</div>
+                              {[...Array(it.maxTier)].map((_, tIdx) => {
+                                const isColumn = type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'uses'].includes(type);
+                                return (
+                                  <div key={tIdx} style={{ display: 'flex', marginBottom: '8px', gap: '10px', flexDirection: isColumn ? 'column' : 'row' }}>
+                                    <label style={{ minWidth: '60px', fontSize: '0.85em', color: '#666', paddingTop: isColumn ? '0' : '4px' }}>Tier {tIdx + 1}:</label>
+                                    <PropertyField 
+                                      propKey={prop} 
+                                      value={(it as any)[prop]?.[tIdx] ?? getDefaultValue(type)} 
+                                      onChange={val => {
+                                        const old = (it as any)[prop];
+                                        const arr = Array.isArray(old) ? [...old] : [old];
+                                        while(arr.length <= tIdx) arr.push(getDefaultValue(type));
+                                        arr[tIdx] = val;
+                                        setItem(ci, ii, { [prop]: arr });
+                                      }} 
+                                      globalTags={globalTags} 
+                                      categories={categories} 
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div style={{ display: 'flex', flexDirection: type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'uses'].includes(type) ? 'column' : 'row' }}>
+                              <label style={{ minWidth: '140px', fontWeight: 'bold' }}>{prop}:</label>
+                              <PropertyField propKey={prop} value={(it as any)[prop]} onChange={val => setItem(ci, ii, { [prop]: val })} globalTags={globalTags} categories={categories} />
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <div style={{ display: 'flex', flexDirection: type.includes('Array') || ['requirements', 'affection', 'damageInterface', 'usedBy'].includes(type) ? 'column' : 'row' }}>
-                          <label style={{ minWidth: '140px', fontWeight: 'bold' }}>{prop}:</label>
-                          <PropertyField propKey={prop} value={(it as any)[prop]} onChange={val => setItem(ci, ii, { [prop]: val })} globalTags={globalTags} categories={categories} />
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-                <button onClick={() => removeItem(ci, ii)}>Delete Item</button>
+                      );
+                    })}
+                    <button onClick={() => removeItem(ci, ii)}>Delete Item</button>
+                  </div>
+                ))}
               </div>
-            ))}
+            </>
+          )}
           </div>
-        </div>
         );
       })}
       <div style={{ marginTop: '10px' }}>
+        <input 
+          value={exportFileName} 
+          onChange={(e) => setExportFileName(e.target.value)} 
+          placeholder="Filename..."
+          style={{ marginRight: '8px', padding: '4px', borderRadius: '4px', border: '1px solid #ccc' }}
+        />
         <button onClick={exportAll}>Export Categories</button>
         <input type="file" accept="application/json" onChange={importFile} />
       </div>
