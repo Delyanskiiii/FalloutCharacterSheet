@@ -41,6 +41,8 @@ export interface Item {
   requirements?: Requirement[];
   tags?: string[];
   affects?: Affection[];
+  stat?: number;
+  statFormula?: Affection[];
   usedBy?: UsedBy[];
   priceCost?: number;
   useCost?: number;
@@ -69,7 +71,7 @@ interface Category {
   showProps?: boolean;
 }
 
-const PROPERTY_CONFIG: Record<string, PropertyType> = {
+export const PROPERTY_CONFIG: Record<string, PropertyType> = {
   name: 'string',
   maxTier: 'number',
   maxRepeats: 'number',
@@ -77,6 +79,8 @@ const PROPERTY_CONFIG: Record<string, PropertyType> = {
   requirements: 'requirements',
   tags: 'stringArray',
   affects: 'affection',
+  stat: 'number',
+  statFormula: 'affection',
   usedBy: 'usedBy',
   priceCost: 'number',
   useCost: 'number',
@@ -98,16 +102,17 @@ const PROPERTY_CONFIG: Record<string, PropertyType> = {
   loadWorn: 'number',
 };
 
-const ITEM_PROPERTY_OPTIONS = Object.keys(PROPERTY_CONFIG);
+export const ITEM_PROPERTY_OPTIONS = Object.keys(PROPERTY_CONFIG);
 const DICE_OPTIONS = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
 
-const NON_TIERED_PROPS = ['id', 'name', 'maxTier'];
+export const NON_TIERED_PROPS = ['id', 'name', 'maxTier'];
+const ARRAY_TYPES: PropertyType[] = ['stringArray', 'numberArray', 'requirements', 'affection', 'usedBy', 'damageInterface'];
 
 // --- Helper Logic ---
 
-const getPropertyType = (prop: string): PropertyType => PROPERTY_CONFIG[prop] || 'string';
+export const getPropertyType = (prop: string): PropertyType => PROPERTY_CONFIG[prop] || 'string';
 
-const getDefaultValue = (type: PropertyType) => {
+export const getDefaultValue = (type: PropertyType) => {
   switch (type) {
     case 'number': return 0;
     case 'stringArray':
@@ -432,15 +437,39 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
     propertyKeys.forEach((key) => {
       const type = getPropertyType(key);
       const val = (item as any)[key];
+      const isArrType = ARRAY_TYPES.includes(type);
 
       if (NON_TIERED_PROPS.includes(key)) {
         normalized[key] = val ?? getDefaultValue(type);
       } else if (mTier >= 2) {
-        let arr = Array.isArray(val) ? [...val] : [val ?? getDefaultValue(type)];
+        let arr: any[];
+        if (Array.isArray(val)) {
+          if (isArrType) {
+            // Tiered array-based types look like Array<Array<T>>.
+            if (val.length > 0 && Array.isArray(val[0])) {
+              arr = [...val];
+            } else {
+              arr = [val]; // Wrap single value-array into tier-array
+            }
+          } else {
+            arr = [...val];
+          }
+        } else {
+          arr = [val ?? getDefaultValue(type)];
+        }
         while (arr.length < mTier) arr.push(getDefaultValue(type));
         normalized[key] = arr.slice(0, mTier);
       } else {
-        normalized[key] = Array.isArray(val) ? val[0] : (val ?? getDefaultValue(type));
+        if (Array.isArray(val)) {
+          if (isArrType) {
+            // If we have tiered data (Array<Array<T>>), extract the first tier.
+            normalized[key] = (val.length > 0 && Array.isArray(val[0])) ? val[0] : val;
+          } else {
+            normalized[key] = val[0];
+          }
+        } else {
+          normalized[key] = val ?? getDefaultValue(type);
+        }
       }
     });
     return normalized as Item;
