@@ -2,13 +2,7 @@ import React, { useState, Dispatch, SetStateAction } from 'react';
 import { Responsive } from 'react-grid-layout';
 import * as Data from '../data';
 import { CharacterSheet, Special } from '../types';
-import NumberInput from '../components/NumberInput';
-import SpecialComponent from '../components/SpecialComponent';
 import { Category, getPropertyType, ARRAY_TYPES, NON_TIERED_PROPS, PropertyDisplay } from './Refactor';
-import PersonalComponent from '../components/PersonalComponent';
-import SkillsComponent from '../components/SkillsComponent';
-import TraitsComponent from '../components/TraitsComponent';
-import NotesComponent from '../components/NotesComponent';
 
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -33,15 +27,6 @@ const SheetMaker = ({
 }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedCategory, setSelectedCategory] = useState('');
-
-  const CATEGORY_COMPONENTS: Record<string, React.FC<any>> = {
-    personal: PersonalComponent,
-    special: SpecialComponent,
-    skills: SkillsComponent,
-    vitality: NumberInput,
-    traits: TraitsComponent,
-    notes: NotesComponent,
-  };
 
   const onLayoutChange = (currentLayout: any, allLayouts: any) => {
     setLayout(allLayouts);
@@ -125,18 +110,19 @@ const SheetMaker = ({
                     {systemCategory.items.length === 0 && <div style={{ opacity: 0.5 }}>No items defined in system.</div>}
                   </div>
                 ) : (
-                  Object.entries(categoryData).map(([dataName, dataData]) => {
-                    const ComponentToRender = CATEGORY_COMPONENTS[categoryName] || NumberInput;
-                    return (
-                      <ComponentToRender
-                        key={dataName}
-                        dataName={dataName}
-                        dataData={dataData} 
-                        activeSheet={activeSheet} 
-                        setActiveSheet={setActiveSheet} 
-                      />
-                    );
-                  })
+                  // Object.entries(categoryData).map(([dataName, dataData]) => {
+                  //   const ComponentToRender = CATEGORY_COMPONENTS[categoryName] || NumberInput;
+                  //   return (
+                  //     <ComponentToRender
+                  //       key={dataName}
+                  //       dataName={dataName}
+                  //       dataData={dataData} 
+                  //       activeSheet={activeSheet} 
+                  //       setActiveSheet={setActiveSheet} 
+                  //     />
+                  //   );
+                  // })
+                  <></>
                 )}
               </div>
             </div>

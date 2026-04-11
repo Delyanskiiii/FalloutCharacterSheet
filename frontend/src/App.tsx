@@ -2,7 +2,6 @@ import './App.css';
 import { CharacterSheet } from './types';
 import { useEffect, useState, useCallback, Dispatch, SetStateAction } from 'react';
 //import characterData from './sheets/Sheet_0.json';
-import Main from './pages/Main';
 import Refactor, { 
   Category, 
   Item, 
@@ -12,6 +11,7 @@ import Refactor, {
   NON_TIERED_PROPS,
   getCategoryKeys
 } from './pages/Refactor';
+import Main from './pages/Main';
 import SheetMaker from './pages/SheetMaker';
 
 type ViewMode = 'character' | 'system' | 'sheet';
@@ -153,7 +153,7 @@ function App() {
     // so they render properly in the Character View (Main)
     if (layout?.lg) {
       layout.lg.forEach((l: any) => {
-        if (!newSheet[l.i]) newSheet[l.i] = {};
+        if (newSheet[l.i] === undefined) newSheet[l.i] = {};
       });
     }
 
@@ -363,6 +363,7 @@ function App() {
               setLayout={setLayout}
               isDM={isLocalhost}
               lockGrid={lockGrid}
+              categories={categories}
             />
           ) : (
             <div style={{ padding: '20px' }}>

@@ -482,7 +482,7 @@ function PropertyField({ propKey, value, onChange, globalTags = [], categories =
 
 // --- Main Component ---
 
-const Refactor = ({ 
+function Refactor({ 
   characters, 
   loadSheet, 
   categories, 
@@ -502,7 +502,7 @@ const Refactor = ({
   normalizeItem: (item: Partial<Item>, propertyKeys: string[]) => Item,
   lockGrid: () => void,
   loadDefaultSheet: () => void
-}) => {
+}) {
   const hostname = window.location.hostname;
 
   const addCategory = () => {
@@ -704,6 +704,6 @@ const Refactor = ({
       )}
     </div>
   );
-};
+}
 
 export default Refactor;
