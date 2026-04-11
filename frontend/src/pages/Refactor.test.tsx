@@ -11,6 +11,8 @@ const mockProps = {
   globalTags: [],
   setGlobalTags: jest.fn(),
   normalizeItem: (item: any) => item,
+  lockGrid: jest.fn(),
+  loadDefaultSheet: jest.fn(),
 };
 
 describe('Refactor Component Automated Tests', () => {

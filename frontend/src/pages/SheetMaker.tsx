@@ -4,7 +4,7 @@ import * as Data from '../data';
 import { CharacterSheet, Special } from '../types';
 import NumberInput from '../components/NumberInput';
 import SpecialComponent from '../components/SpecialComponent';
-import { Category, getPropertyType, ARRAY_TYPES, NON_TIERED_PROPS } from './Refactor';
+import { Category, getPropertyType, ARRAY_TYPES, NON_TIERED_PROPS, PropertyDisplay } from './Refactor';
 import PersonalComponent from '../components/PersonalComponent';
 import SkillsComponent from '../components/SkillsComponent';
 import TraitsComponent from '../components/TraitsComponent';
@@ -14,71 +14,22 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
 const SAVED_LAYOUT_KEY = 'user-character-sheet-layout';
-
-const PropertyDisplay = ({ prop, value }: { prop: string; value: any }) => {
-  const type = getPropertyType(prop);
-  if (value === undefined || value === null || (Array.isArray(value) && value.length === 0)) return null;
-
-  const isNativeArray = ARRAY_TYPES.includes(type);
-  // Handle tiered values (show first tier for preview)
-  const actualValue = !isNativeArray && Array.isArray(value) ? value[0] : value;
-
-  const renderContent = () => {
-    if (type === 'requirements' || type === 'affection') {
-      return (
-        <div style={{ fontSize: '0.85em', color: '#aaa', marginLeft: '10px' }}>
-          {actualValue.map((v: any, i: number) => (
-            <div key={i}>
-              • {v.category && `${v.category}: `}{v.itemName && `${v.itemName} `}
-              {v.property} {v.affection} {v.value}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    if (type === 'uses') {
-      return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginLeft: '10px' }}>
-          {actualValue.map((v: any, i: number) => (
-            <span key={i} style={{ fontSize: '0.8em', border: '1px solid #00ff0044', padding: '0 4px', borderRadius: '2px' }}>
-              {v.type === 'tag' ? `#${v.tag}` : v.type === 'category' ? `[${v.category}]` : `${v.category}: ${v.itemName}`}
-            </span>
-          ))}
-        </div>
-      );
-    }
-    if (type === 'damageInterface') {
-      return <span style={{ marginLeft: '10px' }}>{actualValue.map((d: any) => `${d.diceMultiplier}${d.extraDice}`).join(', ')}</span>;
-    }
-    if (prop === 'range' && typeof actualValue === 'object') {
-      return <span style={{ marginLeft: '10px' }}>{actualValue.type === 'Melee' ? 'Melee' : `Ranged (${actualValue.normal}/${actualValue.disadvantage})`}</span>;
-    }
-    if (Array.isArray(actualValue)) return <span style={{ marginLeft: '10px' }}>{actualValue.join(', ')}</span>;
-    return <span style={{ marginLeft: '10px' }}>{String(actualValue)}</span>;
-  };
-
-  return (
-    <div style={{ marginBottom: '4px' }}>
-      <span style={{ fontSize: '0.7em', textTransform: 'uppercase', opacity: 0.5, letterSpacing: '0.5px' }}>{prop}: </span>
-      {renderContent()}
-    </div>
-  );
-};
-
 const SheetMaker = ({
   activeSheet, 
   setActiveSheet, 
   categories,
   globalTags,
   layout,
-  setLayout
+  setLayout,
+  lockGrid
 }: {
   activeSheet: CharacterSheet | null, 
   setActiveSheet: Dispatch<SetStateAction<CharacterSheet | null>>, 
   categories: Category[],
   globalTags: string[],
   layout: any,
-  setLayout: Dispatch<SetStateAction<any>>
+  setLayout: Dispatch<SetStateAction<any>>,
+  lockGrid: () => void
 }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -96,25 +47,6 @@ const SheetMaker = ({
     setLayout(allLayouts);
     localStorage.setItem(SAVED_LAYOUT_KEY, JSON.stringify(allLayouts));
     console.log("Layout saved to LocalStorage!");
-  };
-
-  const lockGrid = () => {
-    if (!layout) return;
-    const updatedLayouts = { ...layout };
-
-    Object.keys(updatedLayouts).forEach((breakpoint) => {
-      const key = breakpoint as keyof typeof updatedLayouts;
-      const currentLayout = updatedLayouts[key];
-
-      if (currentLayout) {
-        updatedLayouts[key] = currentLayout!.map((item: any) => ({
-          ...item,
-          isDraggable: !item.isDraggable,
-          isResizable: !item.isDraggable,
-        }));
-      }
-    });
-    setLayout(updatedLayouts);
   };
 
   const addCategoryWindow = () => {

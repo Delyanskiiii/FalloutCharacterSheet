@@ -21,6 +21,7 @@ function App() {
   const [activeGame, setActiveGame] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [globalTags, setGlobalTags] = useState<string[]>([]);
+  const [systemDefaultSheet, setSystemDefaultSheet] = useState<CharacterSheet | null>(null);
   const [layout, setLayout] = useState<any>(() => {
     const saved = localStorage.getItem('user-character-sheet-layout');
     return saved ? JSON.parse(saved) : {
@@ -104,6 +105,7 @@ function App() {
       setCategories(data.categories || []);
       setGlobalTags(data.globalTags || []);
       if (data.layout) setLayout(data.layout);
+      if (data.defaultSheet) setSystemDefaultSheet(data.defaultSheet);
     } catch (err) {
       console.error("Failed to fetch system data:", err);
       // Fallback or keep current if server is down
@@ -135,6 +137,56 @@ function App() {
     fetchCharacters();
     if (activeGame) fetchSystemData(activeGame);
   }, [fetchCharacters, fetchSystemData, activeGame]);
+
+  const createNewCharacter = () => {
+    const name = prompt("Enter character name:");
+    if (!name || name.trim() === "") return;
+
+    // Use the system blueprint (defaultSheet) as the base template
+    const blueprint = systemDefaultSheet || { personal: {} };
+    const newSheet = JSON.parse(JSON.stringify(blueprint));
+
+    // Initialize personal info and ensure it's distinct from the template
+    newSheet.personal = { ...(newSheet.personal || {}), name: name.trim() };
+
+    // Ensure all categories defined in the current layout exist as keys 
+    // so they render properly in the Character View (Main)
+    if (layout?.lg) {
+      layout.lg.forEach((l: any) => {
+        if (!newSheet[l.i]) newSheet[l.i] = {};
+      });
+    }
+
+    setActiveSheet(newSheet as CharacterSheet);
+    setView('character');
+  };
+
+  const loadDefaultSheet = useCallback(() => {
+    const defaultSheet: any = {
+      personal: { name: 'Default Character' },
+      special: { strength: 5, perception: 5, endurance: 5, charisma: 5, intelligence: 5, agility: 5, luck: 5 },
+      skills: {},
+      inventory: {}
+    };
+    setSystemDefaultSheet(defaultSheet as CharacterSheet);
+  }, []);
+
+  const lockGrid = useCallback(() => {
+    if (!layout) return;
+    const updatedLayouts = { ...layout };
+    Object.keys(updatedLayouts).forEach((breakpoint) => {
+      const key = breakpoint as keyof typeof updatedLayouts;
+      const currentLayout = updatedLayouts[key];
+      if (currentLayout) {
+        updatedLayouts[key] = currentLayout!.map((item: any) => ({
+          ...item,
+          isDraggable: !item.isDraggable,
+          isResizable: !item.isDraggable,
+        }));
+      }
+    });
+    setLayout(updatedLayouts);
+  }, [layout]);
 
   const loadSheet = async (name: string) => {
     try {
@@ -169,7 +221,7 @@ function App() {
       ...cat,
       items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
     }));
-    const data = JSON.stringify({ categories: cleanCategories, globalTags, layout }, null, 2);
+    const data = JSON.stringify({ categories: cleanCategories, globalTags, layout, defaultSheet: systemDefaultSheet }, null, 2);
     const fileName = exportFileName.trim() || 'categories';
     const suggestedName = fileName.endsWith('.json') ? fileName : `${fileName}.json`;
 
@@ -225,6 +277,7 @@ function App() {
         }
         if (obj.globalTags) setGlobalTags(obj.globalTags);
         if (obj.layout) setLayout(obj.layout);
+        if (obj.defaultSheet) setSystemDefaultSheet(obj.defaultSheet);
         
         setActiveGame(name);
         setExportFileName(name);
@@ -277,18 +330,21 @@ function App() {
             globalTags={globalTags}
             setGlobalTags={setGlobalTags}
             normalizeItem={normalizeItem}
+            lockGrid={lockGrid}
+            loadDefaultSheet={loadDefaultSheet}
           />
         </div>
 
         {/* Sheet Maker View */}
         <div style={{ display: view === 'sheet' ? 'block' : 'none', height: '100%', padding: '20px' }}>
           <SheetMaker 
-            activeSheet={activeSheet} 
-            setActiveSheet={setActiveSheet} 
+            activeSheet={systemDefaultSheet} 
+            setActiveSheet={setSystemDefaultSheet} 
             categories={categories}
             globalTags={globalTags}
             layout={layout}
             setLayout={setLayout}
+            lockGrid={lockGrid}
           />
         </div>
 
@@ -299,7 +355,15 @@ function App() {
               <h1>Waiting for DM to host a game...</h1>
             </div>
           ) : activeSheet ? (
-            <Main activeSheet={activeSheet} setActiveSheet={setActiveSheet} saveSheet={saveSheet} />
+            <Main 
+              activeSheet={activeSheet} 
+              setActiveSheet={setActiveSheet} 
+              saveSheet={saveSheet} 
+              layout={layout}
+              setLayout={setLayout}
+              isDM={isLocalhost}
+              lockGrid={lockGrid}
+            />
           ) : (
             <div style={{ padding: '20px' }}>
               <h1>Select Your Character ({activeGame})</h1>
@@ -309,6 +373,9 @@ function App() {
                     {name}
                   </button>
                 ))}
+                <button onClick={createNewCharacter} style={{ padding: '10px 20px', borderStyle: 'dashed', opacity: 0.8 }}>
+                  + NEW CHARACTER
+                </button>
               </div>
             </div>
           )}

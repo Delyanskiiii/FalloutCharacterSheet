@@ -133,6 +133,55 @@ export const getDefaultValue = (type: PropertyType) => {
 
 export const getCategoryKeys = (cat: Category) => (cat.propertyKeys?.length > 0 ? cat.propertyKeys : ['name']);
 
+export const PropertyDisplay = ({ prop, value }: { prop: string; value: any }) => {
+  const type = getPropertyType(prop);
+  if (value === undefined || value === null || (Array.isArray(value) && value.length === 0)) return null;
+
+  const isNativeArray = ARRAY_TYPES.includes(type);
+  const actualValue = !isNativeArray && Array.isArray(value) ? value[0] : value;
+
+  const renderContent = () => {
+    if (type === 'requirements' || type === 'affection') {
+      return (
+        <div style={{ fontSize: '0.85em', color: '#aaa', marginLeft: '10px' }}>
+          {actualValue.map((v: any, i: number) => (
+            <div key={i}>
+              • {v.category && `${v.category}: `}{v.itemName && `${v.itemName} `}
+              {v.property} {v.affection} {v.value}
+            </div>
+          ))}
+        </div>
+      );
+    }
+    if (type === 'uses') {
+      return (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginLeft: '10px' }}>
+          {actualValue.map((v: any, i: number) => (
+            <span key={i} style={{ fontSize: '0.8em', border: '1px solid #00ff0044', padding: '0 4px', borderRadius: '2px' }}>
+              {v.type === 'tag' ? `#${v.tag}` : v.type === 'category' ? `[${v.category}]` : `${v.category}: ${v.itemName}`}
+            </span>
+          ))}
+        </div>
+      );
+    }
+    if (type === 'damageInterface') {
+      return <span style={{ marginLeft: '10px' }}>{actualValue.map((d: any) => `${d.diceMultiplier}${d.extraDice}`).join(', ')}</span>;
+    }
+    if (prop === 'range' && typeof actualValue === 'object') {
+      return <span style={{ marginLeft: '10px' }}>{actualValue.type === 'Melee' ? 'Melee' : `Ranged (${actualValue.normal}/${actualValue.disadvantage})`}</span>;
+    }
+    if (Array.isArray(actualValue)) return <span style={{ marginLeft: '10px' }}>{actualValue.join(', ')}</span>;
+    return <span style={{ marginLeft: '10px' }}>{String(actualValue)}</span>;
+  };
+
+  return (
+    <div style={{ marginBottom: '4px' }}>
+      <span style={{ fontSize: '0.7em', textTransform: 'uppercase', opacity: 0.5, letterSpacing: '0.5px' }}>{prop}: </span>
+      {renderContent()}
+    </div>
+  );
+};
+
 // --- Sub-Components ---
 
 const TagManager = ({ tags, onTagsChange }: { tags: string[], onTagsChange: (tags: string[]) => void }) => {
@@ -440,7 +489,9 @@ const Refactor = ({
   setCategories, 
   globalTags, 
   setGlobalTags,
-  normalizeItem
+  normalizeItem,
+  lockGrid,
+  loadDefaultSheet
 }: { 
   characters: string[], 
   loadSheet: (name: string) => void,
@@ -448,7 +499,9 @@ const Refactor = ({
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>,
   globalTags: string[],
   setGlobalTags: React.Dispatch<React.SetStateAction<string[]>>,
-  normalizeItem: (item: Partial<Item>, propertyKeys: string[]) => Item
+  normalizeItem: (item: Partial<Item>, propertyKeys: string[]) => Item,
+  lockGrid: () => void,
+  loadDefaultSheet: () => void
 }) => {
   const hostname = window.location.hostname;
 
@@ -521,10 +574,15 @@ const Refactor = ({
   });
 
   const renderDMTools = () => (
-    <div style={{ padding: '10px', border: '1px solid #888', marginTop: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ padding: '10px', background: '#333', position: 'sticky', top: 0, zIndex: 10, display: 'flex', gap: '10px' }}>
+        <button onClick={addCategory}>Add Category</button>
+        <button onClick={loadDefaultSheet}>Load Default Sheet</button>
+        <button onClick={lockGrid}>Lock/Unlock Grid</button>
+      </div>
+      <div style={{ padding: '20px' }}>
       <TagManager tags={globalTags} onTagsChange={setGlobalTags} />
       <h2>DM Category Manager</h2>
-      <button onClick={addCategory} style={{ marginBottom: '10px' }}>Add Category</button>
       {categories.map((cat, ci) => {
         const isDuplicate = categories.some((c, i) => i !== ci && c.name.trim() === cat.name.trim() && cat.name.trim() !== "");
         return (
@@ -566,7 +624,20 @@ const Refactor = ({
                 <strong>Items</strong>
                 <button onClick={() => addItem(ci)} style={{ marginLeft: '5px' }}>+ Item</button>
                 {cat.items.map((it, ii) => (
-                  <div key={ii} style={{ marginTop: '10px', padding: '10px', border: '1px solid #ddd' }}>
+                  <div key={ii} style={{ marginTop: '10px', padding: '10px', border: '1px solid #ddd', background: '#222' }}>
+                    <div style={{ marginBottom: '10px', border: '1px solid #444', padding: '10px', borderRadius: '4px' }}>
+                      <div style={{ fontSize: '0.7em', color: '#888', marginBottom: '5px' }}>PREVIEW</div>
+                      <div style={{ fontWeight: 'bold', fontSize: '1.1em', marginBottom: '4px', borderBottom: '1px solid #333' }}>{it.name}</div>
+                      {it.description && (
+                        <div style={{ fontSize: '0.9em', opacity: 0.8, marginBottom: '8px', fontStyle: 'italic' }}>
+                          {Array.isArray(it.description) ? it.description[0] : it.description}
+                        </div>
+                      )}
+                      {getCategoryKeys(cat).filter(k => !NON_TIERED_PROPS.includes(k) && k !== 'description').map(prop => (
+                        <PropertyDisplay key={prop} prop={prop} value={(it as any)[prop]} />
+                      ))}
+                    </div>
+
                     {getCategoryKeys(cat).map((prop) => {
                       const type = getPropertyType(prop);
                       return (
@@ -614,6 +685,7 @@ const Refactor = ({
           </div>
         );
       })}
+      </div>
     </div>
   );
 
@@ -625,7 +697,10 @@ const Refactor = ({
           {renderDMTools()}
         </div>
       ) : (
-        <h1>Select Your Character</h1>
+        <div style={{ padding: '20px' }}>
+          <h1>Access Denied</h1>
+          <p>DM Tools are only available on the host machine.</p>
+        </div>
       )}
     </div>
   );
