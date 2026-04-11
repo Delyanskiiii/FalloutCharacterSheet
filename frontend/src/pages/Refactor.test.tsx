@@ -6,6 +6,11 @@ import Refactor from './Refactor';
 const mockProps = {
   characters: [],
   loadSheet: jest.fn(),
+  categories: [],
+  setCategories: jest.fn(),
+  globalTags: [],
+  setGlobalTags: jest.fn(),
+  normalizeItem: (item: any) => item,
 };
 
 describe('Refactor Component Automated Tests', () => {

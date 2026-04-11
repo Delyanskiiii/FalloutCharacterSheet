@@ -66,7 +66,7 @@ export interface Item {
   APtoUse?: number;
 }
 
-interface Category {
+export interface Category {
   name: string;
   items: Item[];
   propertyKeys: string[];
@@ -111,7 +111,7 @@ export const ITEM_PROPERTY_OPTIONS = Object.keys(PROPERTY_CONFIG);
 const DICE_OPTIONS = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
 
 export const NON_TIERED_PROPS = ['id', 'name', 'maxTier'];
-const ARRAY_TYPES: PropertyType[] = ['stringArray', 'numberArray', 'requirements', 'affection', 'uses', 'damageInterface'];
+export const ARRAY_TYPES: PropertyType[] = ['stringArray', 'numberArray', 'requirements', 'affection', 'uses', 'damageInterface'];
 
 // --- Helper Logic ---
 
@@ -131,7 +131,7 @@ export const getDefaultValue = (type: PropertyType) => {
   }
 };
 
-const getCategoryKeys = (cat: Category) => (cat.propertyKeys?.length > 0 ? cat.propertyKeys : ['name']);
+export const getCategoryKeys = (cat: Category) => (cat.propertyKeys?.length > 0 ? cat.propertyKeys : ['name']);
 
 // --- Sub-Components ---
 
@@ -288,7 +288,7 @@ function ObjectArrayEditor({ type, value, onChange, categories = [], globalTags 
           {type === 'uses' && (
             <>
               <span style={{ fontSize: '0.8em', minWidth: '35px' }}>
-                {obj.type === 'tag' ? 'Tag:' : 'Item:'}
+                {obj.type === 'tag' ? 'Tag:' : obj.type === 'category' ? 'Cat:' : 'Item:'}
               </span>
               {obj.type === 'tag' ? (
                 <select value={obj.tag || ''} onChange={e => updateEntry(i, 'tag', e.target.value)}>
@@ -433,63 +433,24 @@ function PropertyField({ propKey, value, onChange, globalTags = [], categories =
 
 // --- Main Component ---
 
-const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: (name: string) => void }) => {
+const Refactor = ({ 
+  characters, 
+  loadSheet, 
+  categories, 
+  setCategories, 
+  globalTags, 
+  setGlobalTags,
+  normalizeItem
+}: { 
+  characters: string[], 
+  loadSheet: (name: string) => void,
+  categories: Category[],
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>,
+  globalTags: string[],
+  setGlobalTags: React.Dispatch<React.SetStateAction<string[]>>,
+  normalizeItem: (item: Partial<Item>, propertyKeys: string[]) => Item
+}) => {
   const hostname = window.location.hostname;
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [globalTags, setGlobalTags] = useState<string[]>([]);
-  const [exportFileName, setExportFileName] = useState('categories');
-
-  const normalizeItem = useCallback((item: Partial<Item>, propertyKeys: string[]): Item => {
-    const normalized: any = { id: item.id || Date.now() };
-    const mTier = item.maxTier ?? 1;
-
-    propertyKeys.forEach((key) => {
-      const type = getPropertyType(key);
-      const val = (item as any)[key];
-      const isArrType = ARRAY_TYPES.includes(type);
-
-      if (NON_TIERED_PROPS.includes(key)) {
-        normalized[key] = val ?? getDefaultValue(type);
-      } else if (mTier >= 2) {
-        let arr: any[];
-        if (Array.isArray(val)) {
-          if (isArrType) {
-            // Tiered array-based types look like Array<Array<T>>.
-            if (val.length > 0 && Array.isArray(val[0])) {
-              arr = [...val];
-            } else {
-              arr = [val]; // Wrap single value-array into tier-array
-            }
-          } else {
-            arr = [...val];
-          }
-        } else {
-          arr = [val ?? getDefaultValue(type)];
-        }
-        while (arr.length < mTier) arr.push(getDefaultValue(type));
-        normalized[key] = arr.slice(0, mTier);
-      } else {
-        if (Array.isArray(val)) {
-          if (isArrType) {
-            // If we have tiered data (Array<Array<T>>), extract the first tier.
-            normalized[key] = (val.length > 0 && Array.isArray(val[0])) ? val[0] : val;
-          } else {
-            normalized[key] = val[0];
-          }
-        } else {
-          normalized[key] = val ?? getDefaultValue(type);
-        }
-      }
-    });
-    return normalized as Item;
-  }, []);
-
-  useEffect(() => {
-    setCategories(prev => prev.map(cat => ({
-      ...cat,
-      items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
-    })));
-  }, [normalizeItem]);
 
   const addCategory = () => {
     const existingNames = categories.map(c => c.name.trim());
@@ -558,60 +519,6 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
   const removeItem = (catIdx: number, itemIdx: number) => updateCategory(catIdx, { 
     items: categories[catIdx].items.filter((_, i) => i !== itemIdx) 
   });
-
-  const exportAll = async () => {
-    const cleanCategories = categories.map(cat => ({
-      ...cat,
-      items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
-    }));
-    const data = JSON.stringify({ categories: cleanCategories, globalTags }, null, 2);
-    const fileName = exportFileName.trim() || 'categories';
-    const suggestedName = fileName.endsWith('.json') ? fileName : `${fileName}.json`;
-
-    // Use File System Access API if available (Chrome, Edge, Opera)
-    if ('showSaveFilePicker' in window) {
-      try {
-        const handle = await (window as any).showSaveFilePicker({
-          suggestedName,
-          types: [{
-            description: 'JSON Files',
-            accept: { 'application/json': ['.json'] },
-          }],
-        });
-        const writable = await handle.createWritable();
-        await writable.write(data);
-        await writable.close();
-        return;
-      } catch (err: any) {
-        // If the user cancels the dialog, just exit
-        if (err.name === 'AbortError') return;
-        console.error('File System Access API failed, falling back to download...', err);
-      }
-    }
-
-    // Fallback for browsers that don't support the API (Firefox, Safari)
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = suggestedName;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const importFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const obj = JSON.parse(reader.result as string);
-        if (obj.categories) setCategories(obj.categories.map((c: any) => ({ ...c, items: (c.items || []).map((it: any) => normalizeItem(it, c.propertyKeys || ['name'])) })));
-        if (obj.globalTags) setGlobalTags(obj.globalTags);
-      } catch (err) { console.error('Import failed', err); }
-    };
-    reader.readAsText(file);
-  };
 
   const renderDMTools = () => (
     <div style={{ padding: '10px', border: '1px solid #888', marginTop: '20px' }}>
@@ -707,22 +614,12 @@ const Refactor = ({ characters, loadSheet }: { characters: string[], loadSheet: 
           </div>
         );
       })}
-      <div style={{ marginTop: '10px' }}>
-        <input 
-          value={exportFileName} 
-          onChange={(e) => setExportFileName(e.target.value)} 
-          placeholder="Filename..."
-          style={{ marginRight: '8px', padding: '4px', borderRadius: '4px', border: '1px solid #ccc' }}
-        />
-        <button onClick={exportAll}>Export Categories</button>
-        <input type="file" accept="application/json" onChange={importFile} />
-      </div>
     </div>
   );
 
   return (
     <div>
-      {(hostname === 'localhost' || hostname === '127.0.0.1') ? (
+      {(hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.local')) ? (
         <div>
           <h1>Welcome, DM!</h1>
           {renderDMTools()}
