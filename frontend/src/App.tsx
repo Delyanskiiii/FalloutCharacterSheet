@@ -1,6 +1,6 @@
 import './App.css';
 import { CharacterSheet } from './types';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Dispatch, SetStateAction } from 'react';
 //import characterData from './sheets/Sheet_0.json';
 import Main from './pages/Main';
 import Refactor, { 
@@ -21,6 +21,23 @@ function App() {
   const [activeGame, setActiveGame] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [globalTags, setGlobalTags] = useState<string[]>([]);
+  const [layout, setLayout] = useState<any>(() => {
+    const saved = localStorage.getItem('user-character-sheet-layout');
+    return saved ? JSON.parse(saved) : {
+      lg: [
+        { i: 'personal', x: 0, y: 0, w: 3, h: 6 },
+        { i: 'special', x: 3, y: 0, w: 6, h: 7 },
+        { i: 'skills', x: 0, y: 6, w: 3, h: 10 },
+        { i: 'weapons', x: 9, y: 0, w: 3, h: 11 },
+        { i: 'armor', x: 9, y: 11, w: 3, h: 9 },
+        { i: 'vitals', x: 3, y: 7, w: 6, h: 9 },
+        { i: 'traits', x: 0, y: 16, w: 3, h: 15 },
+        { i: 'perks', x: 3, y: 16, w: 3, h: 15 },
+        { i: 'notes', x: 6, y: 16, w: 3, h: 15 },
+        { i: 'inventory', x: 9, y: 20, w: 3, h: 11 }
+      ]
+    };
+  });
   const [exportFileName, setExportFileName] = useState('categories');
   const [activeSheet, setActiveSheet] = useState<CharacterSheet | null>(null);
   const [view, setView] = useState<ViewMode>('character');
@@ -86,6 +103,7 @@ function App() {
       const data = await res.json();
       setCategories(data.categories || []);
       setGlobalTags(data.globalTags || []);
+      if (data.layout) setLayout(data.layout);
     } catch (err) {
       console.error("Failed to fetch system data:", err);
       // Fallback or keep current if server is down
@@ -151,7 +169,7 @@ function App() {
       ...cat,
       items: cat.items.map(it => normalizeItem(it, getCategoryKeys(cat)))
     }));
-    const data = JSON.stringify({ categories: cleanCategories, globalTags }, null, 2);
+    const data = JSON.stringify({ categories: cleanCategories, globalTags, layout }, null, 2);
     const fileName = exportFileName.trim() || 'categories';
     const suggestedName = fileName.endsWith('.json') ? fileName : `${fileName}.json`;
 
@@ -206,6 +224,7 @@ function App() {
           })));
         }
         if (obj.globalTags) setGlobalTags(obj.globalTags);
+        if (obj.layout) setLayout(obj.layout);
         
         setActiveGame(name);
         setExportFileName(name);
@@ -240,7 +259,12 @@ function App() {
           </div>
         )}
         {activeGame && !isLocalhost && <span style={{ color: '#00ff00', marginLeft: '10px', fontSize: '0.8em', opacity: 0.8 }}>HOSTING: {activeGame.toUpperCase()}</span>}
-        {activeSheet && <span style={{ marginLeft: 'auto', color: '#00ff00', fontSize: '0.9em', opacity: 0.7 }}>CONNECTED: {activeSheet.personal.name.toUpperCase()}</span>}
+        {activeSheet && (
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button onClick={saveSheet} title="Save Character Data">💾</button>
+            <span style={{ color: '#00ff00', fontSize: '0.9em', opacity: 0.7 }}>CONNECTED: {activeSheet.personal.name.toUpperCase()}</span>
+          </div>
+        )}
       </nav>
       <main className="View-Container">
         {/* System Maker View */}
@@ -261,9 +285,10 @@ function App() {
           <SheetMaker 
             activeSheet={activeSheet} 
             setActiveSheet={setActiveSheet} 
-            saveSheet={saveSheet} 
             categories={categories}
             globalTags={globalTags}
+            layout={layout}
+            setLayout={setLayout}
           />
         </div>
 

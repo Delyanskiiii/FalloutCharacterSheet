@@ -66,6 +66,8 @@ html, body, #root {
   border: 1px solid #00ff00;
   color: #00ff00;
   touch-action: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .Drag-handle {
@@ -89,4 +91,5 @@ html, body, #root {
   overflow-y: auto;
   justify-content: center;
   pointer-events: auto;
+  flex: 1;
 }
