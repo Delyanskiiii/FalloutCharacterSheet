@@ -1,8 +1,7 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import { Responsive } from 'react-grid-layout';
-import * as Data from '../data';
-import { CharacterSheet, Special } from '../types';
-import { Category, NON_TIERED_PROPS, PropertyDisplay } from './Refactor';
+import { Category, NON_TIERED_PROPS, PropertyDisplay } from './SystemMaker';
+import { CharacterSheet } from '../App';
 
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';

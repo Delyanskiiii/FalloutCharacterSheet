@@ -1,7 +1,5 @@
 import './App.css';
-import { CharacterSheet } from './types';
 import { useEffect, useState, useCallback, Dispatch, SetStateAction } from 'react';
-//import characterData from './sheets/Sheet_0.json';
 import Refactor, { 
   Category, 
   Item, 
@@ -10,9 +8,14 @@ import Refactor, {
   ARRAY_TYPES, 
   NON_TIERED_PROPS,
   getCategoryKeys
-} from './pages/Refactor';
-import Main from './pages/Main';
+} from './pages/SystemMaker';
+import CharacterViewer from './pages/CharacterViewer';
 import SheetMaker from './pages/SheetMaker';
+
+export type CharacterSheet = {
+  name: string;
+  stuff: any;
+}
 
 type ViewMode = 'character' | 'system' | 'sheet';
 
@@ -147,7 +150,8 @@ function App() {
     const newSheet = JSON.parse(JSON.stringify(blueprint));
 
     // Initialize personal info and ensure it's distinct from the template
-    newSheet.personal = { ...(newSheet.personal || {}), name: name.trim() };
+    // newSheet.name = { ...(newSheet.name || {}), name: name.trim() };
+    newSheet.name = name.trim();
 
     // Ensure all categories defined in the current layout exist as keys 
     // so they render properly in the Character View (Main)
@@ -203,7 +207,7 @@ function App() {
     if (!activeSheet) return;
 
     try {
-      const res = await fetch(`/game/${activeSheet.personal.name}?game=${activeGame}`, {
+      const res = await fetch(`/game/${activeSheet.name}?game=${activeGame}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(activeSheet),
@@ -312,10 +316,10 @@ function App() {
           </div>
         )}
         {activeGame && !isLocalhost && <span style={{ color: '#00ff00', marginLeft: '10px', fontSize: '0.8em', opacity: 0.8 }}>HOSTING: {activeGame.toUpperCase()}</span>}
-        {activeSheet && (
+        {activeSheet && activeSheet.name && (
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <button onClick={saveSheet} title="Save Character Data">💾</button>
-            <span style={{ color: '#00ff00', fontSize: '0.9em', opacity: 0.7 }}>CONNECTED: {activeSheet.personal.name.toUpperCase()}</span>
+            <span style={{ color: '#00ff00', fontSize: '0.9em', opacity: 0.7 }}>CONNECTED: {activeSheet.name.toUpperCase()}</span>
           </div>
         )}
       </nav>
@@ -355,7 +359,7 @@ function App() {
               <h1>Waiting for DM to host a game...</h1>
             </div>
           ) : activeSheet ? (
-            <Main 
+            <CharacterViewer 
               activeSheet={activeSheet} 
               setActiveSheet={setActiveSheet} 
               saveSheet={saveSheet} 
