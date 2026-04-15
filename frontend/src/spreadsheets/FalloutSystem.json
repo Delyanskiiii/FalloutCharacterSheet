@@ -1,0 +1,407 @@
+{
+  "categories": [
+    {
+      "name": "Ammo special",
+      "items": [
+        {
+          "id": 1775503788207,
+          "name": "Armor Piercing",
+          "description": "If the weapon's damage is dealt to a creature's hit points, it ignores up to 8 points of DT and the creature's armor gains a level of decay."
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "description"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Ammo",
+      "items": [
+        {
+          "id": 1775503875149,
+          "name": ".308",
+          "priceCost": 10,
+          "weight": 1,
+          "uses": [
+            {
+              "type": "item",
+              "category": "Ammo special",
+              "itemName": "Armor Piercing"
+            },
+            {
+              "type": "category",
+              "category": "Ammo syringer",
+              "itemName": ""
+            }
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "priceCost",
+        "weight",
+        "uses"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Ammo syringer",
+      "items": [
+        {
+          "id": 1775505332520,
+          "name": "Stimpak Loader",
+          "description": "This syringe allows you to load it with a stimpak, the target gains the effects of the stimpak.",
+          "priceCost": 25
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "description",
+        "priceCost"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Armor upgrades",
+      "items": [
+        {
+          "id": 1775505482704,
+          "name": "Insulated",
+          "maxTier": 2,
+          "priceCost": [
+            100,
+            800
+          ],
+          "description": [
+            "You are insulated against hypothermia. However, your maximum AP decreases by 1 to a minimum of 6.",
+            "Your AP is no longer decreased and you remain insulated. However, this upgrade costs 800 caps instead of 100."
+          ],
+          "affects": [
+            [
+              {
+                "category": "Stats",
+                "itemName": "Action Points",
+                "property": "stat",
+                "affection": "minus",
+                "value": 1
+              }
+            ],
+            []
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "maxTier",
+        "priceCost",
+        "description",
+        "affects"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "SPECIAL",
+      "items": [
+        {
+          "id": 1775592214902,
+          "name": "Strength",
+          "stat": 8
+        },
+        {
+          "id": 1775827495247,
+          "name": "Luck",
+          "stat": 4
+        },
+        {
+          "id": 1775827705110,
+          "name": "Agility",
+          "stat": 6
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "stat"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Skills",
+      "items": [
+        {
+          "id": 1775592263150,
+          "name": "Mele",
+          "stat": 0,
+          "statFormula": [
+            {
+              "category": "SPECIAL",
+              "itemName": "Strength",
+              "property": "stat",
+              "affection": "plus",
+              "value": 0
+            },
+            {
+              "category": "SPECIAL",
+              "itemName": "Luck",
+              "property": "stat",
+              "affection": "divide",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "stat",
+        "statFormula"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Stats",
+      "items": [
+        {
+          "id": 1775827675174,
+          "name": "Action Points",
+          "stat": 10,
+          "statFormula": [
+            {
+              "category": "SPECIAL",
+              "itemName": "Agility",
+              "property": "stat",
+              "affection": "minus",
+              "value": 5
+            }
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "stat",
+        "statFormula"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Armor",
+      "items": [
+        {
+          "id": 1775831831629,
+          "name": "Cloth",
+          "priceCost": 50,
+          "damageThreshold": 0,
+          "armorClass": 10,
+          "maxUpgrades": 8,
+          "description": "Cloth armor doesn't provide much protection. However it lends its simplicity to being light and having the most amount of upgrade slots. Most vault suits are considered cloth armor.",
+          "requirements": [
+            {
+              "category": "SPECIAL",
+              "itemName": "Strength",
+              "property": "stat",
+              "affection": "more",
+              "value": 0
+            }
+          ],
+          "weight": 5,
+          "uses": [
+            {
+              "type": "category",
+              "category": "Armor upgrades",
+              "itemName": ""
+            }
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "priceCost",
+        "damageThreshold",
+        "armorClass",
+        "maxUpgrades",
+        "description",
+        "requirements",
+        "weight",
+        "uses"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Chems",
+      "items": [
+        {
+          "id": 1775832138350,
+          "name": "Buffout",
+          "priceCost": 20,
+          "weight": 0.1,
+          "uses": [
+            {
+              "type": "item",
+              "category": "Chem properties",
+              "itemName": "Anabolic"
+            }
+          ]
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "priceCost",
+        "weight",
+        "uses"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Chem properties",
+      "items": [
+        {
+          "id": 1775832725989,
+          "name": "Anabolic",
+          "description": "If you use a chem with this property, you have advantage on all Strength and Endurance ability and skill checks. Additionally, you gain temporary hit points equal to your level"
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "description"
+      ],
+      "showProps": false,
+      "minimized": true
+    },
+    {
+      "name": "Conditions",
+      "items": [
+        {
+          "id": 1775832846635,
+          "name": "Blinded",
+          "description": "A blinded creature can't see and automatically fails any ability check that requires sight. Attack rolls against a blinded creature have advantage. A blinded creature can attack creatures with a blind attack if they are aware of them"
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "description"
+      ],
+      "showProps": true,
+      "minimized": true
+    },
+    {
+      "name": "Diseases",
+      "items": [
+        {
+          "id": 1775833987299,
+          "name": "Blood worms",
+          "description": "Whenever you take damage to your hit points, you take an additional 1d4 poison damage. Cured by x1 antibiotic and an hour.",
+          "duration": 12
+        }
+      ],
+      "propertyKeys": [
+        "name",
+        "description",
+        "duration"
+      ],
+      "showProps": true,
+      "minimized": true
+    }
+  ],
+  "globalTags": [],
+  "layout": {
+    "lg": [
+      {
+        "i": "Ammo special",
+        "x": 0,
+        "y": 0,
+        "w": 4,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Ammo",
+        "x": 4,
+        "y": 8,
+        "w": 4,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Ammo syringer",
+        "x": 0,
+        "y": 16,
+        "w": 4,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Armor upgrades",
+        "x": 8,
+        "y": 8,
+        "w": 3,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "SPECIAL",
+        "x": 4,
+        "y": 0,
+        "w": 4,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Skills",
+        "x": 8,
+        "y": 0,
+        "w": 3,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Stats",
+        "x": 0,
+        "y": 8,
+        "w": 4,
+        "h": 8,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      },
+      {
+        "i": "Armor",
+        "x": 4,
+        "y": 16,
+        "w": 6,
+        "h": 10,
+        "moved": false,
+        "static": false,
+        "isDraggable": true,
+        "isResizable": true
+      }
+    ]
+  },
+  "defaultSheet": null
+}
