@@ -493,8 +493,8 @@ function Refactor({
   lockGrid,
   loadDefaultSheet
 }: { 
-  characters: string[], 
-  loadSheet: (name: string) => void,
+  characters: any[], 
+  loadSheet: (character: any) => void,
   categories: Category[],
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>,
   globalTags: string[],

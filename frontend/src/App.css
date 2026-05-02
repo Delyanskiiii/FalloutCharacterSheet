@@ -14,23 +14,135 @@ html, body, #root {
   background-color: #2c2c2c;
 }
 
+:root {
+  --bg: #1a1a1a;
+  --surface: #222;
+  --panel: #1e1e1e;
+  --border: #00ff00;
+  --text: #00ff00;
+  --text-soft: rgba(0,255,0,0.8);
+  --danger: #ff4444;
+  --input-bg: #111;
+  --muted-bg: rgba(0,255,0,0.1);
+  --radius: 4px;
+}
+
 .App {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #1a1a1a;
-  color: #00ff00;
+  background-color: var(--bg);
+  color: var(--text);
   overflow: hidden;
+}
+
+.button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 5px 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: monospace;
+}
+
+.button:hover {
+  background: var(--muted-bg);
+}
+
+.button.active {
+  background: rgba(0,255,0,0.2);
+}
+
+.button.dashed {
+  border-style: dashed;
+  opacity: 0.8;
+}
+
+.button.small {
+  padding: 5px 10px;
+}
+
+.control-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-left: 10px;
+  border-left: 1px solid #444;
+  padding-left: 10px;
+}
+
+.system-input {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 2px 5px;
+  width: 140px;
+}
+
+.status-host,
+.status-connected {
+  color: var(--text-soft);
+}
+
+.status-error {
+  color: var(--danger);
+}
+
+.page-panel {
+  height: 100%;
+}
+
+.page-panel.padded {
+  padding: 20px;
+}
+
+.grid-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.char-button {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.char-button:hover {
+  background: var(--muted-bg);
+}
+
+.char-button.new {
+  border-style: dashed;
+  opacity: 0.8;
+}
+
+.hidden {
+  display: none;
+}
+
+.right-control {
+  margin-left: 0;
+}
+
+.page-content {
+  padding: 20px;
 }
 
 .Top-Nav {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
   padding: 10px 20px;
   background: #222;
   border-bottom: 2px solid #00ff00;
   align-items: center;
+  text-align: center;
   box-shadow: 0 2px 10px rgba(0, 255, 0, 0.2);
   z-index: 100;
 }
